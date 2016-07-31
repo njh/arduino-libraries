@@ -6,7 +6,10 @@
 <div class="row">
 
 <div class="col-md-4">
-  <h2>By Category</h2>
+  <h2>
+    By Category
+    <small class="glyphicon glyphicon-book" aria-hidden="true"></small>
+  </h2>
   <ul>
     <% @categories.keys.sort.each do |category| %>
       <li>
@@ -18,7 +21,10 @@
 </div>
 
 <div class="col-md-4">
-  <h2>By Type</h2>
+  <h2>
+    By Type
+    <small class="glyphicon glyphicon-tags" aria-hidden="true"></small>
+  </h2>
   <ul>
     <% @types.keys.sort.each do |type| %>
       <li>
@@ -30,7 +36,10 @@
 </div>
 
 <div class="col-md-4">
-  <h2>By Architecture</h2>
+  <h2>
+    By Architecture
+    <small class="glyphicon glyphicon-home" aria-hidden="true"></small>
+  </h2>
   <ul>
     <% @architectures.keys.sort.each do |architecture| %>
       <li>
