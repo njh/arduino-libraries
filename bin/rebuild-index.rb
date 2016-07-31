@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'json'
-require 'semverly'
+require 'bundler/setup'
+Bundler.require(:default)
 
 class String
   def keyize
