@@ -1,3 +1,4 @@
 arduino_library_index.json
 library_index.json
-public/*
+public/libraries/*
+public/index.html

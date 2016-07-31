@@ -14,7 +14,7 @@ libraries = JSON.parse(
 # Load the ERB templates
 Templates = {}
 Dir.foreach('views') do |filename|
-  if filename =~ /^(\w+).html.erb$/
+  if filename =~ /^(\w+)\.(\w+)\.erb$/
     template_key = $1.to_sym
     Templates[template_key] = Tilt::ErubisTemplate.new(
       "views/#{filename}",
