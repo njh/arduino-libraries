@@ -39,12 +39,36 @@ def render(filename, template, args={})
 end
 
 
+@categories = data[:categories].keys.sort
+
+render(
+  'index.html',
+  :index,
+  :title => "The catalogue of Arduino Libraries",
+  :categories => data[:categories]
+)
+
 render(
   'libraries/index.html',
   :list,
   :title => 'All Libraries',
+  :synopsis => "A list of the <i>#{data[:libraries].keys.count}</i> "+
+               "libraries registered in the Arduino Library Manager.",
+  :keys => data[:libraries].keys,
   :libraries => data[:libraries]
 )
+
+data[:categories].each_pair do |category,libraries|
+  render(
+    "categories/#{category.to_s.keyize}/index.html",
+    :list,
+    :title => category,
+    :synopsis => "A list of the <i>#{libraries.count}</i> "+
+                 "libraries in the category #{category}.",
+    :keys => libraries.map {|key| key.to_sym},
+    :libraries => data[:libraries]
+  )
+end
 
 data[:libraries].each_pair do |key,library|
   render(

@@ -1,0 +1,9 @@
+<h2>By Category</h2>
+<ul>
+  <% categories.keys.sort.each do |category| %>
+    <li>
+      <a href="/categories/<%= category.to_s.keyize %>"><%= category %></a>
+      (<%= categories[category].count %>)
+    </li>
+  <% end %>
+</ul>

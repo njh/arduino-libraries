@@ -2,6 +2,7 @@
 
 require 'bundler/setup'
 Bundler.require(:default)
+require './lib/helpers'
 
 
 VersionSecificKeys = [
@@ -54,6 +55,13 @@ data[:libraries].each_pair do |key, library|
     end
   end
 end
+
+# Create an index of categories
+data[:libraries].each_pair do |key, library|
+  data[:categories][library[:category]] ||= []
+  data[:categories][library[:category]] << key
+end
+
 
 # Finally, write to back to disk
 File.open('library_index.json', 'wb') do |file|

@@ -1,13 +1,10 @@
-<p>
-  Below is a list of all the <em><%= libraries.keys.count %></em>
-  libraries registered in the Arduino Library Manager.
-</p>
+<p><%== synopsis %></p>
 
 <table class="table">
-  <% libraries.keys.sort.each do |key| %>
+  <% keys.sort.each do |key| %>
     <% library = libraries[key] %>
     <tr>
-      <td><a href="./libraries/<%= key %>"><%= library[:name] %></a></td>
+      <td><a href="/libraries/<%= key %>"><%= library[:name] %></a></td>
       <td><%= library[:sentence] %></td>
     </tr>
   <% end %>
