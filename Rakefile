@@ -32,6 +32,9 @@ end
 task :default => :rebuild
 
 task :clean do
-  File.delete('library_index.json')
-  File.delete('public/index.html')
+  File.foreach('.gitignore') do |line|
+    # For safety
+    next unless line =~ /^\w+/
+    sh 'rm', '-Rf', line
+  end
 end
