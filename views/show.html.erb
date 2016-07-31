@@ -4,7 +4,9 @@
 
 <dl class="dl-horizontal">
   <dt>Author</dt>         <dd><%= library[:author] %></dd>
+  <% if library[:maintainer] != library[:author] %>
   <dt>Maintainer</dt>     <dd><%= library[:maintainer] %></dd>
+  <% end %>
   <dt>Website</dt>        <dd><%== link_to(library[:website]) %></dd>
   <dt>Category</dt>       <dd><%= library[:category] %></dd>
   <dt>Library Type</dt>   <dd><%= library[:types] ? library[:types].join(', ') : 'Unknown' %></dd>
