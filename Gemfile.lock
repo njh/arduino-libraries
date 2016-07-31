@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json (2.0.2)
+    rake (11.2.2)
+    semverly (1.0.0)
+    webrick (1.3.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  json
+  rake
+  semverly
+  webrick
+
+BUNDLED WITH
+   1.11.2
