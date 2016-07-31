@@ -11,23 +11,42 @@ libraries = JSON.parse(
 )
 
 # Load the ERB templates
-templates = {}
+Templates = {}
 Dir.foreach('views') do |filename|
   if filename =~ /^(\w+).html.erb$/
     template_key = $1.to_sym
-    template_data = File.read("views/#{filename}")
-    templates[template_key] = Erubis::EscapedEruby.new(template_data)
+    Templates[template_key] = Tilt::ERBTemplate.new(
+      "views/#{filename}",
+      :escape_html => true
+    )
   end
 end
 
-File.open("public/index.html", 'wb') do |file|
-  file.write templates[:index].result(:libraries => libraries)
+def render(filename, template, args={})
+  filename = "public/#{filename}"
+  dirname = File.dirname(filename)
+  FileUtils.mkdir_p(dirname) unless Dir.exist?(dirname)
+
+  File.open(filename, 'wb') do |file|
+    file.write Templates[:layout].render(self, args) {
+      Templates[template].render(self, args)
+    }
+  end
 end
+
+
+render(
+  'index.html',
+  :index,
+  :title => "Library List",
+  :libraries => libraries
+)
 
 libraries.each_pair do |key,library|
-  dir = "public/libraries/#{key}"
-  FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
-  File.open("#{dir}/index.html", 'wb') do |file|
-    file.write templates[:show].result(:library => library)
-  end
+  render(
+    "libraries/#{key}/index.html",
+    :show,
+    :title => library[:name],
+    :library => library
+  )
 end
