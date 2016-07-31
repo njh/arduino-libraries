@@ -3,14 +3,6 @@
 require 'bundler/setup'
 Bundler.require(:default)
 
-class String
-  def keyize
-    self.gsub(/([A-Z]+)([A-Z][a-z])/,'\1-\2').
-    gsub(/([a-z\d])([A-Z])/,'\1-\2').
-    gsub(/\s+/,'-').
-    downcase
-  end
-end
 
 VersionSecificKeys = [
   'version', 'url', 'archiveFileName', 'size', 'checksum'
