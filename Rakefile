@@ -35,6 +35,6 @@ task :clean do
   File.foreach('.gitignore') do |line|
     # For safety
     next unless line =~ /^\w+/
-    sh 'rm', '-Rf', line
+    sh 'rm', '-Rf', line.strip
   end
 end
