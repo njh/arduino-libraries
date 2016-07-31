@@ -4,6 +4,11 @@ GEM
     erubis (2.7.0)
     filesize (0.1.1)
     json (2.0.2)
+    mini_portile2 (2.1.0)
+    nokogiri (1.6.8)
+      mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
+    pkg-config (1.1.7)
     rake (11.2.2)
     semverly (1.0.0)
     tilt (2.0.5)
@@ -16,6 +21,7 @@ DEPENDENCIES
   erubis
   filesize
   json
+  nokogiri
   rake
   semverly
   tilt

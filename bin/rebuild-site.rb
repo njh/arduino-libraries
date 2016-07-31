@@ -23,16 +23,19 @@ Dir.foreach('views') do |filename|
   end
 end
 
+Filenames = []
 def render(filename, template, args={})
-  filename = "public/#{filename}"
-  dirname = File.dirname(filename)
+  publicpath = "public/#{filename}"
+  dirname = File.dirname(publicpath)
   FileUtils.mkdir_p(dirname) unless Dir.exist?(dirname)
 
-  File.open(filename, 'wb') do |file|
+  File.open(publicpath, 'wb') do |file|
     file.write Templates[:layout].render(self, args) {
       Templates[template].render(self, args)
     }
   end
+  
+  Filenames << filename
 end
 
 
@@ -50,4 +53,23 @@ libraries.each_pair do |key,library|
     :title => library[:name],
     :library => library
   )
+end
+
+File.open('public/sitemap.xml', 'wb') do |file|
+  builder = Nokogiri::XML::Builder.new
+  builder.urlset(
+    'xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
+    'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+    'xsi:schemaLocation' => 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
+  ) {
+    Filenames.each do |filename|
+      builder.url do
+        url = "http://www.arduinolibraries.info/#{filename}"
+        url.sub!(%r|/index.html$|, '')
+        builder.loc(url)
+      end
+    end
+  }
+
+  file.write builder.to_xml
 end
