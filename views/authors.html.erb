@@ -1,0 +1,9 @@
+<ul>
+  <% authors.keys.sort.each do |username| %>
+    <% author = authors[username] %>
+    <li>
+      <a href="/authors/<%= username %>"><%= author[:names].first %></a>
+      (<%= author[:libraries].count %>)
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,13 @@
+<dl class="dl-horizontal">
+  <dt>Name</dt>         <dd><%= author[:names].join(', ') %></dd>
+  <dt>GitHub</dt>       <dd><%== link_to("https://github.com/#{username}") %></dd>
+</dl>
+
+
+<h2>Libraries</h2>
+<ul>
+  <% author[:libraries].each do |key| %>
+    <% library = libraries[key.to_sym] %>
+    <li><%== link_to(library[:name], "/libraries/#{key}") %></li>
+  <% end %>
+</ul>

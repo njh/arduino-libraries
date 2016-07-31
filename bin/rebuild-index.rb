@@ -20,7 +20,8 @@ data = {
   :libraries => {},
   :types => {},
   :categories => {},
-  :architectures => {}
+  :architectures => {},
+  :authors => {}
 }
 
 # First collate the versions
@@ -85,6 +86,28 @@ data[:libraries].each_pair do |key, library|
   end
 end
 
+# Create an index of the Authors
+data[:libraries].each_pair do |key, library|
+  names = []
+  library[:author].split(/\s*,\s*/).each do |author|
+    if author =~ /^(.+?)\s*(<.+>)?$/
+      names << $1
+    end
+  end
+
+  if library[:versions].first[:url] =~ %r|http://downloads.arduino.cc/libraries/([\w\-]+)/|
+    library[:username] = username = $1.downcase
+    data[:authors][username] ||= {}
+    data[:authors][username][:names] ||= []
+    names.each do |name|
+      unless data[:authors][username][:names].include?(name)
+        data[:authors][username][:names] << name
+      end
+    end
+    data[:authors][username][:libraries] ||= []
+    data[:authors][username][:libraries] << key
+  end
+end
 
 # Finally, write to back to disk
 File.open('library_index.json', 'wb') do |file|

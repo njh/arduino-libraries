@@ -1,6 +1,7 @@
 arduino_library_index.json
 library_index.json
 public/architectures/*
+public/authors/*
 public/categories/*
 public/index.html
 public/libraries/*

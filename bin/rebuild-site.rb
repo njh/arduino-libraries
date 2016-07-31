@@ -43,6 +43,7 @@ end
 @types = data[:types]
 @categories = data[:categories]
 @architectures = data[:architectures]
+@authors = data[:authors]
 
 render(
   'index.html',
@@ -93,6 +94,24 @@ data[:architectures].each_pair do |architecture,libraries|
     :synopsis => "A list of the <i>#{libraries.count}</i> "+
                  "libraries in the architecture #{architecture}.",
     :keys => libraries.map {|key| key.to_sym},
+    :libraries => data[:libraries]
+  )
+end
+
+render(
+  "authors/index.html",
+  :authors,
+  :title => "List of Aurduino Library Authors",
+  :authors => data[:authors]
+)
+
+data[:authors].each_pair do |username,author|
+  render(
+    "authors/#{username}/index.html",
+    :author,
+    :title => author[:names].first,
+    :username => username,
+    :author => author,
     :libraries => data[:libraries]
   )
 end
