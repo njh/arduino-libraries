@@ -6,7 +6,7 @@ Bundler.require(:default)
 
 
 # Load the library data
-libraries = JSON.parse(
+data = JSON.parse(
   File.read('library_index.json'),
   {:symbolize_names => true}
 )
@@ -43,10 +43,10 @@ render(
   'index.html',
   :index,
   :title => 'All Libraries',
-  :libraries => libraries
+  :libraries => data[:libraries]
 )
 
-libraries.each_pair do |key,library|
+data[:libraries].each_pair do |key,library|
   render(
     "libraries/#{key}/index.html",
     :show,
