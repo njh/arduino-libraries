@@ -18,12 +18,16 @@ source_data = JSON.parse(
 
 data = {
   :libraries => {},
-  :categories => {}
+  :types => {},
+  :categories => {},
+  :architectures => {}
 }
 
 # First collate the versions
 source_data[:libraries].each do |entry|
   key = entry[:name].keyize
+  entry[:types].map! {|t| t == 'Arduino' ? 'Official' : t }
+  entry[:architectures].map! {|arch| arch.downcase }
   entry[:semver] = SemVer.parse(entry[:version])
   data[:libraries][key] ||= {}
   data[:libraries][key][:versions] ||= []
@@ -56,10 +60,29 @@ data[:libraries].each_pair do |key, library|
   end
 end
 
+# Create an index of types
+data[:libraries].each_pair do |key, library|
+  library[:types].each do |type|
+    data[:types][type] ||= []
+    data[:types][type] << key
+  end
+end
+
 # Create an index of categories
 data[:libraries].each_pair do |key, library|
   data[:categories][library[:category]] ||= []
   data[:categories][library[:category]] << key
+end
+
+# Create an index of architectures
+data[:libraries].each_pair do |key, library|
+  next if library[:architectures].nil?
+  library[:architectures].each do |architecture|
+    architecture = 'Any' if architecture == '*'
+    next unless architecture =~ /^\w+$/
+    data[:architectures][architecture] ||= []
+    data[:architectures][architecture] << key
+  end
 end
 
 

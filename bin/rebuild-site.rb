@@ -39,7 +39,10 @@ def render(filename, template, args={})
 end
 
 
-@categories = data[:categories].keys.sort
+@count = data[:libraries].keys.count
+@types = data[:types]
+@categories = data[:categories]
+@architectures = data[:architectures]
 
 render(
   'index.html',
@@ -52,11 +55,23 @@ render(
   'libraries/index.html',
   :list,
   :title => 'All Libraries',
-  :synopsis => "A list of the <i>#{data[:libraries].keys.count}</i> "+
+  :synopsis => "A list of the <i>#{@count}</i> "+
                "libraries registered in the Arduino Library Manager.",
   :keys => data[:libraries].keys,
   :libraries => data[:libraries]
 )
+
+data[:types].each_pair do |type,libraries|
+  render(
+    "types/#{type.to_s.keyize}/index.html",
+    :list,
+    :title => type,
+    :synopsis => "A list of the <i>#{libraries.count}</i> "+
+                 "libraries of the type #{type}.",
+    :keys => libraries.map {|key| key.to_sym},
+    :libraries => data[:libraries]
+  )
+end
 
 data[:categories].each_pair do |category,libraries|
   render(
@@ -65,6 +80,18 @@ data[:categories].each_pair do |category,libraries|
     :title => category,
     :synopsis => "A list of the <i>#{libraries.count}</i> "+
                  "libraries in the category #{category}.",
+    :keys => libraries.map {|key| key.to_sym},
+    :libraries => data[:libraries]
+  )
+end
+
+data[:architectures].each_pair do |architecture,libraries|
+  render(
+    "architectures/#{architecture.to_s.keyize}/index.html",
+    :list,
+    :title => architecture.capitalize,
+    :synopsis => "A list of the <i>#{libraries.count}</i> "+
+                 "libraries in the architecture #{architecture}.",
     :keys => libraries.map {|key| key.to_sym},
     :libraries => data[:libraries]
   )

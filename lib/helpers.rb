@@ -17,7 +17,7 @@ def pretty_list(list)
   if list.nil?
     "<i>Unknown</i>"
   elsif list == ['*']
-    "All"
+    "Any"
   else
     list.join(', ')
   end

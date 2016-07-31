@@ -1,9 +1,48 @@
-<h2>By Category</h2>
-<ul>
-  <% categories.keys.sort.each do |category| %>
-    <li>
-      <a href="/categories/<%= category.to_s.keyize %>"><%= category %></a>
-      (<%= categories[category].count %>)
-    </li>
-  <% end %>
-</ul>
+<p>
+  This site is generated automatically from the <%= @count %> libraries 
+  registered in the <a href="https://www.arduino.cc/en/Guide/Libraries">Arduino Library Manager</a>.
+</p>
+
+<div class="row">
+
+<div class="col-md-4">
+  <h2>By Category</h2>
+  <ul>
+    <% @categories.keys.sort.each do |category| %>
+      <li>
+        <a href="/categories/<%= category.to_s.keyize %>"><%= category %></a>
+        (<%= @categories[category].count %>)
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="col-md-4">
+  <h2>By Type</h2>
+  <ul>
+    <% @types.keys.sort.each do |type| %>
+      <li>
+        <a href="/types/<%= type.to_s.keyize %>"><%= type %></a>
+        (<%= @types[type].count %>)
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="col-md-4">
+  <h2>By Architecture</h2>
+  <ul>
+    <% @architectures.keys.sort.each do |architecture| %>
+      <li>
+        <a href="/architectures/<%= architecture.to_s.keyize %>"><%= architecture.capitalize %></a>
+        (<%= @architectures[architecture].count %>)
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+</div>
+
+<p style="padding-top: 50px">
+  ... or you can view <a href="/libraries">all <%= @count %> libraries</a> in a great big long list.
+</p>
