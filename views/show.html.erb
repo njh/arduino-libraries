@@ -1,12 +1,8 @@
-<% @title = library[:name] %>
-
-<div><%= library[:sentence] %></div>
-
 <div>
-  <p><%= library[:paragraph] %></p>
+  <p><%= library[:paragraph] || library[:sentence] %></p>
 </div>
 
-<dl>
+<dl class="dl-horizontal">
   <dt>Author</dt>         <dd><%= library[:author] %></dd>
   <dt>Maintainer</dt>     <dd><%= library[:maintainer] %></dd>
   <dt>Website</dt>        <dd><%= library[:website] %></dd>
@@ -17,13 +13,22 @@
 
 
 <h2>Downloads</h2>
-<table>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Filename</th>
+      <th>File Size</th>
+    </th>
+  </thead>
+  
+  <tbody>
   <% library[:versions].each do |version| %>
     <tr>
       <td><a href="<%= version[:url] %>"><%= version[:archiveFileName] %></a></td>
       <td><%= version[:size] %></td>
       <td><%#= version[:checksum] %></td>
     </tr>
-  
   <% end %>
+  </tbody>
+
 </table>

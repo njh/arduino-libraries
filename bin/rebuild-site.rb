@@ -38,7 +38,7 @@ end
 render(
   'index.html',
   :index,
-  :title => "Library List",
+  :title => 'All Libraries',
   :libraries => libraries
 )
 
