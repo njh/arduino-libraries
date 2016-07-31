@@ -3,9 +3,12 @@
   libraries registered in the Arduino Library Manager.
 </p>
 
-<ul>
+<table class="table">
   <% libraries.keys.sort.each do |key| %>
     <% library = libraries[key] %>
-    <li><a href="./libraries/<%= key %>"><%= library[:name] %></a></li>
+    <tr>
+      <td><a href="./libraries/<%= key %>"><%= library[:name] %></a></td>
+      <td><%= library[:sentence] %></td>
+    </tr>
   <% end %>
-</ul>
+</table>

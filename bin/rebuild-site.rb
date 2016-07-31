@@ -40,8 +40,8 @@ end
 
 
 render(
-  'index.html',
-  :index,
+  'libraries/index.html',
+  :list,
   :title => 'All Libraries',
   :libraries => data[:libraries]
 )
