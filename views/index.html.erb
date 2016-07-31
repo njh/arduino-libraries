@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Arduino Library Index</title>
+</head>
+<body>
+	<h1>Arduino Library Index</h1>
+
+  <ul>
+    <% libraries.keys.sort.each do |key| %>
+      <% library = libraries[key] %>
+      <li><a href="./libraries/<%= key %>"><%= library[:name] %></a></li>
+    <% end %>
+  </ul>
+  
+</body>
+</html>

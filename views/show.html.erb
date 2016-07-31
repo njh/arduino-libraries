@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title><%= library['name'] %> - Arduino Library Index</title>
+</head>
+<body>
+	<h1><%= library[:name] %></h1>
+	<div><%= library[:sentence] %></div>
+
+  <div>
+    <p><%= library[:paragraph] %></p>
+	</div>
+
+	<dl>
+	  <dt>Author</dt>         <dd><%= library[:author] %></dd>
+	  <dt>Maintainer</dt>     <dd><%= library[:maintainer] %></dd>
+	  <dt>Website</dt>        <dd><%= library[:website] %></dd>
+	  <dt>Category</dt>       <dd><%= library[:category] %></dd>
+	  <dt>Library Type</dt>   <dd><%= library[:types] ? library[:types].join(', ') : 'Unknown' %></dd>
+	  <dt>Architectures</dt>  <dd><%= library[:architectures] ? library[:architectures].join(', ') : 'Unknown' %></dd>
+	</dl>
+	
+
+  <h2>Downloads</h2>
+  <table>
+    <% library[:versions].each do |version| %>
+      <tr>
+        <td><a href="<%= version[:url] %>"><%= version[:archiveFileName] %></a></td>
+        <td><%= version[:size] %></td>
+        <td><%#= version[:checksum] %></td>
+      </tr>
+    
+    <% end %>
+  </table>
+</body>
+</html>
