@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     erubis (2.7.0)
+    filesize (0.1.1)
     json (2.0.2)
     rake (11.2.2)
     semverly (1.0.0)
@@ -13,6 +14,7 @@ PLATFORMS
 
 DEPENDENCIES
   erubis
+  filesize
   json
   rake
   semverly
