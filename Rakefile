@@ -25,6 +25,10 @@ task :server => :rebuild do
   server.start
 end
 
+task :upload => :rebuild do
+  sh 'rsync -avz --delete -e ssh public/ njh@www.arduinolibraries.info:/srv/www/arduino-libraries/'
+end
+
 task :default => :rebuild
 
 task :clean do
