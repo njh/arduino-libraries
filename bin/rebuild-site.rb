@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
+require './lib/helpers'
 Bundler.require(:default)
 
 
@@ -15,7 +16,7 @@ Templates = {}
 Dir.foreach('views') do |filename|
   if filename =~ /^(\w+).html.erb$/
     template_key = $1.to_sym
-    Templates[template_key] = Tilt::ERBTemplate.new(
+    Templates[template_key] = Tilt::ErubisTemplate.new(
       "views/#{filename}",
       :escape_html => true
     )
