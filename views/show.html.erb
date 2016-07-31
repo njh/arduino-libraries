@@ -9,8 +9,8 @@
   <% end %>
   <dt>Website</dt>        <dd><%== link_to(library[:website]) %></dd>
   <dt>Category</dt>       <dd><%= library[:category] %></dd>
-  <dt>Library Type</dt>   <dd><%= library[:types] ? library[:types].join(', ') : 'Unknown' %></dd>
-  <dt>Architectures</dt>  <dd><%= library[:architectures] ? library[:architectures].join(', ') : 'Unknown' %></dd>
+  <dt>Library Type</dt>   <dd><%== pretty_list(library[:types]) %></dd>
+  <dt>Architectures</dt>  <dd><%== pretty_list(library[:architectures]) %></dd>
 </dl>
 
 
