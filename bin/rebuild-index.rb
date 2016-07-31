@@ -13,7 +13,7 @@ class String
 end
 
 VersionSecificKeys = [
-  'url', 'archiveFileName', 'size', 'checksum'
+  'version', 'url', 'archiveFileName', 'size', 'checksum'
 ]
 
 
@@ -43,6 +43,7 @@ end
 libraries.each_pair do |key, library|
   # Copy over the non-specific version keys from the newest
   newest = library['versions'].first
+  library['version'] = newest['version']
   newest.keys.each do |key|
     unless VersionSecificKeys.include?(key)
       library[key] = newest[key]
