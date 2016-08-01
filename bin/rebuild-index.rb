@@ -30,6 +30,7 @@ source_data[:libraries].each do |entry|
   entry[:types].map! {|t| t == 'Arduino' ? 'Official' : t }
   entry[:architectures].map! {|arch| arch.downcase }
   entry[:semver] = SemVer.parse(entry[:version])
+  entry[:website].sub!(%r[https?://(www\.)?github\.com/], 'https://github.com/')
   data[:libraries][key] ||= {}
   data[:libraries][key][:versions] ||= []
   data[:libraries][key][:versions] << entry
@@ -58,6 +59,12 @@ data[:libraries].each_pair do |key, library|
     version.keys.each do |key|
       version.delete(key) unless VersionSecificKeys.include?(key)
     end
+  end
+
+  # Work out the Github URL
+  if newest[:url] =~ %r|http://downloads.arduino.cc/libraries/([\w\-]+)/([\w\-]+)-|
+    library[:username] = $1.downcase
+    library[:github] = "https://github.com/#{$1}/#{$2}"
   end
 end
 
@@ -95,18 +102,16 @@ data[:libraries].each_pair do |key, library|
     end
   end
 
-  if library[:versions].first[:url] =~ %r|http://downloads.arduino.cc/libraries/([\w\-]+)/|
-    library[:username] = username = $1.downcase
-    data[:authors][username] ||= {}
-    data[:authors][username][:names] ||= []
-    names.each do |name|
-      unless data[:authors][username][:names].include?(name)
-        data[:authors][username][:names] << name
-      end
+  username = library[:username]
+  data[:authors][username] ||= {}
+  data[:authors][username][:names] ||= []
+  names.each do |name|
+    unless data[:authors][username][:names].include?(name)
+      data[:authors][username][:names] << name
     end
-    data[:authors][username][:libraries] ||= []
-    data[:authors][username][:libraries] << key
   end
+  data[:authors][username][:libraries] ||= []
+  data[:authors][username][:libraries] << key
 end
 
 # Finally, write to back to disk

@@ -8,6 +8,9 @@
   <dt>Maintainer</dt>     <dd><%= library[:maintainer] %></dd>
   <% end %>
   <dt>Website</dt>        <dd><%== link_to(library[:website]) %></dd>
+  <% if library[:github] != library[:website] %>
+  <dt>Github</dt>         <dd><%== link_to(library[:github]) %></dd>
+  <% end %>
   <dt>Category</dt>       <dd><%= library[:category] %></dd>
   <dt>Library Type</dt>   <dd><%== pretty_list(library[:types]) %></dd>
   <dt>Architectures</dt>  <dd><%== pretty_list(library[:architectures]) %></dd>
