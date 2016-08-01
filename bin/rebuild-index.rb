@@ -62,9 +62,17 @@ data[:libraries].each_pair do |key, library|
   end
 
   # Work out the Github URL
-  if newest[:url] =~ %r|http://downloads.arduino.cc/libraries/([\w\-]+)/([\w\-]+)-|
-    library[:username] = $1.downcase
-    library[:github] = "https://github.com/#{$1}/#{$2}"
+  if newest[:url] =~ %r|http://downloads.arduino.cc/libraries/([\w\-]+)/([\w\-]+)-|i
+    username, reponame = $1, $2
+    library[:username] = username.downcase
+
+    # The download URL is based on the Name - if a website is given try using that
+    if library[:website] =~ %r|github\.com/#{username}/([\w\-]+)|i
+      reponame = $1
+    end
+
+    # FIXME: sometimes this doesn't work - where can we reliably get the repo name from?
+    library[:github] = "https://github.com/#{username}/#{reponame}"
   end
 end
 
