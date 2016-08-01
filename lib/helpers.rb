@@ -13,6 +13,10 @@ def link_to(text, href=nil)
   "<a href='#{href}'>#{text}</a>"
 end
 
+def link_to_category(category)
+  link_to(category, "/categories/#{category.keyize}")
+end
+
 def pretty_list(list)
   if list.nil?
     "<i>Unknown</i>"
