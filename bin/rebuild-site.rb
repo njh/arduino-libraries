@@ -23,19 +23,23 @@ Dir.foreach('views') do |filename|
   end
 end
 
-Filenames = []
+Urls = []
 def render(filename, template, args={})
   publicpath = "public/#{filename}"
   dirname = File.dirname(publicpath)
   FileUtils.mkdir_p(dirname) unless Dir.exist?(dirname)
 
+  url = "http://www.arduinolibraries.info/#{filename}"
+  url.sub!(%r|/index.html$|, '')
+  args.merge!(:url => url)
+  
   File.open(publicpath, 'wb') do |file|
     file.write Templates[:layout].render(self, args) {
       Templates[template].render(self, args)
     }
   end
   
-  Filenames << filename
+  Urls << url
 end
 
 
@@ -132,10 +136,8 @@ File.open('public/sitemap.xml', 'wb') do |file|
     'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
     'xsi:schemaLocation' => 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
   ) {
-    Filenames.each do |filename|
+    Urls.each do |url|
       builder.url do
-        url = "http://www.arduinolibraries.info/#{filename}"
-        url.sub!(%r|/index.html$|, '')
         builder.loc(url)
       end
     end
