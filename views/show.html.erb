@@ -3,7 +3,7 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Author</dt>         <dd><%== link_to(library[:author], "/authors/#{library[:username]}") %></dd>
+  <dt>Author</dt>         <dd><%== link_to(library[:author], :href => "/authors/#{library[:username]}") %></dd>
   <% if library[:maintainer] != library[:author] %>
   <dt>Maintainer</dt>     <dd><%= library[:maintainer] %></dd>
   <% end %>

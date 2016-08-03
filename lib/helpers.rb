@@ -8,13 +8,14 @@ class String
 end
 
 
-def link_to(text, href=nil)
-  href=text if href.nil?
-  "<a href='#{href}'>#{text}</a>"
+def link_to(text, attributes={})
+  attributes['href'] ||= text
+  str = attributes.to_a.map {|k,v| "#{k}='#{v}'"}.join(' ')
+  "<a #{str}>#{text}</a>"
 end
 
 def link_to_category(category)
-  link_to(category, "/categories/#{category.keyize}")
+  link_to(category, :href => "/categories/#{category.keyize}")
 end
 
 def pretty_list(list)

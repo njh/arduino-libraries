@@ -8,6 +8,6 @@
 <ul>
   <% author[:libraries].each do |key| %>
     <% library = libraries[key.to_sym] %>
-    <li><%== link_to(library[:name], "/libraries/#{key}") %></li>
+    <li><%== link_to(library[:name], :href => "/libraries/#{key}") %></li>
   <% end %>
 </ul>
