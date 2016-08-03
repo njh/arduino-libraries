@@ -29,7 +29,7 @@ Then install all the dependencies:
 
 To build a copy of the website on your local machine run:
 
-    $ rake rebuild
+    $ rake build
 
 This will download the required data, and generate all the HTML files.
 

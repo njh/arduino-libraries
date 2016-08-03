@@ -8,14 +8,14 @@ file 'arduino_library_index.json' do |task|
 end
 
 file 'library_index.json' => 'arduino_library_index.json' do |task|
-  ruby 'bin/rebuild-index.rb'
+  ruby 'bin/build-index.rb'
 end
 
-task :rebuild => ['library_index.json'] do
-  ruby 'bin/rebuild-site.rb'
+task :build => ['library_index.json'] do
+  ruby 'bin/build-site.rb'
 end
 
-task :server => :rebuild do
+task :server => :build do
   require 'webrick'
   server = WEBrick::HTTPServer.new(
     :Port => 3000,
@@ -25,11 +25,11 @@ task :server => :rebuild do
   server.start
 end
 
-task :upload => :rebuild do
+task :upload => :build do
   sh 'rsync -avz --delete -e ssh public/ njh@www.arduinolibraries.info:/srv/www/arduino-libraries/'
 end
 
-task :default => :rebuild
+task :default => :build
 
 task :clean do
   File.foreach('.gitignore') do |line|
