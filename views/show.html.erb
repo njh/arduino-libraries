@@ -29,7 +29,7 @@
   <tbody>
   <% library[:versions].each do |version| %>
     <tr>
-      <td><a href="<%= version[:url] %>"><%= version[:archiveFileName] %></a></td>
+      <td><%== link_to(version[:archiveFileName], :href => version[:url]) %></td>
       <td><%= format_filesize(version[:size]) %></td>
       <td><%#= version[:checksum] %></td>
     </tr>

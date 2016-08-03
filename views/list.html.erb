@@ -4,7 +4,7 @@
   <% keys.sort.each do |key| %>
     <% library = libraries[key] %>
     <tr>
-      <td><a href="/libraries/<%= key %>"><%= library[:name] %></a></td>
+      <td><%== link_to(library[:name], :href => "/libraries/#{key}") %></td>
       <td><%= library[:sentence] %></td>
     </tr>
   <% end %>

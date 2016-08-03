@@ -13,7 +13,7 @@
   <ul>
     <% @categories.keys.sort.each do |category| %>
       <li>
-        <a href="/categories/<%= category.to_s.keyize %>"><%= category %></a>
+        <%== link_to(category, :href => "/categories/#{category.to_s.keyize}") %>
         (<%= @categories[category].count %>)
       </li>
     <% end %>
@@ -28,7 +28,7 @@
   <ul>
     <% @types.keys.sort.each do |type| %>
       <li>
-        <a href="/types/<%= type.to_s.keyize %>"><%= type %></a>
+        <%== link_to(type, :href => "/types/#{type.to_s.keyize}") %>
         (<%= @types[type].count %>)
       </li>
     <% end %>
@@ -43,7 +43,7 @@
   <ul>
     <% @architectures.keys.sort.each do |architecture| %>
       <li>
-        <a href="/architectures/<%= architecture.to_s.keyize %>"><%= architecture.capitalize %></a>
+        <%== link_to(architecture.capitalize, :href => "/architectures/#{architecture.to_s.keyize}") %>
         (<%= @architectures[architecture].count %>)
       </li>
     <% end %>
@@ -53,6 +53,6 @@
 </div>
 
 <p style="padding-top: 50px">
-  ... or you can view all <a href="/libraries"><%= @count %> libraries</a>, or 
-  <a href="/authors"><%= @authors.count %> authors</a> in a great big long list.
+  ... or you can view all <%== link_to("#{@count} libraries", :href => "/libraries") %>, or 
+  <%== link_to("#{@count} authors", :href => "/authors") %> in a great big long list.
 </p>

@@ -40,7 +40,7 @@
             <a href="/categories" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <% @categories.keys.sort.each do |category| %>
-                <li><a href="/categories/<%= category.to_s.keyize %>"><%= category %></a></li>
+                <li><%== link_to(category, :href => "/categories/#{category.to_s.keyize}") %></li>
               <% end %>
             </ul>
           </li>
@@ -48,7 +48,7 @@
             <a href="/types" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Types <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <% @types.keys.sort.each do |type| %>
-                <li><a href="/types/<%= type.to_s.keyize %>"><%= type %></a></li>
+                <li><%== link_to(type, :href => "/types/#{type.to_s.keyize}") %></li>
               <% end %>
             </ul>
           </li>
@@ -56,7 +56,7 @@
             <a href="/architectures" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Architectures <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <% @architectures.keys.sort.each do |architecture| %>
-                <li><a href="/architectures/<%= architecture.to_s.keyize %>"><%= architecture.capitalize %></a></li>
+                <li><%== link_to(architecture, :href => "/architecures/#{architecture.to_s.keyize}") %></li>
               <% end %>
             </ul>
           </li>
@@ -74,7 +74,7 @@
   <footer class="footer">
     <div class="container">
       <p>
-        Created by <a href="http://twitter.com/njh">@njh</a>.
+        Created by <a href="http://twitter.com/njh">@njh</a>
       </p>
       <p>
         This website is Open Source, please help improve it by submitting a change on GitHub: <br />
