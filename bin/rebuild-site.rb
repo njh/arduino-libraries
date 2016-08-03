@@ -31,7 +31,8 @@ def render(filename, template, args={})
 
   url = "http://www.arduinolibraries.info/#{filename}"
   url.sub!(%r|/index.html$|, '')
-  args.merge!(:url => url)
+  args[:url] ||= url
+  args[:description] ||= nil
   
   File.open(publicpath, 'wb') do |file|
     file.write Templates[:layout].render(self, args) {
@@ -52,7 +53,8 @@ end
 render(
   'index.html',
   :index,
-  :title => "The catalogue of Arduino Libraries",
+  :title => "Arduino Library List",
+  :description => "A catalogue of the #{@count} Arduino Libraries",
   :categories => data[:categories]
 )
 
@@ -125,6 +127,7 @@ data[:libraries].each_pair do |key,library|
     "libraries/#{key}/index.html",
     :show,
     :title => library[:name],
+    :description => library[:sentence],
     :library => library
   )
 end
