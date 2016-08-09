@@ -109,6 +109,13 @@
     ga('create', 'UA-81845219-1', 'auto');
     ga('send', 'pageview');
   </script>
+
+  <% unless jsonld.nil? %>
+    <!-- Schema.org JSON-LD Structured Data-->
+    <script type="application/ld+json">
+      <%== jsonld %>
+    </script>
+  <% end %>
 </body>
 
 </html>

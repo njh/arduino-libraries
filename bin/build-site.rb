@@ -33,6 +33,7 @@ def render(filename, template, args={})
   url.sub!(%r|/index.html$|, '')
   args[:url] ||= url
   args[:description] ||= nil
+  args[:jsonld] ||= nil
   
   File.open(publicpath, 'wb') do |file|
     file.write Templates[:layout].render(self, args) {
@@ -123,11 +124,14 @@ data[:authors].each_pair do |username,author|
 end
 
 data[:libraries].each_pair do |key,library|
+  jsonld = File.read("public/libraries/#{key}.json")
+
   render(
     "libraries/#{key}/index.html",
     :show,
     :title => library[:name],
     :description => library[:sentence],
+    :jsonld => jsonld,
     :library => library
   )
 end
