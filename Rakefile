@@ -12,6 +12,7 @@ file 'library_index.json' => 'arduino_library_index.json' do |task|
 end
 
 task :build => ['library_index.json'] do
+  ruby 'bin/build-linkeddata.rb'
   ruby 'bin/build-site.rb'
 end
 
