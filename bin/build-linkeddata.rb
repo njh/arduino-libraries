@@ -2,7 +2,7 @@
 
 require 'bundler/setup'
 require './lib/helpers'
-Bundler.require(:default)
+Bundler.require(:default, :linkeddata)
 
 
 # Load the library data
@@ -23,7 +23,7 @@ data[:libraries].each_pair do |key,library|
       'url' => library[:website],
       'author' => {
         '@type' => 'Person',
-        :name => library[:author],
+        'name' => library[:author],
       },
       'applicationCategory' => library[:category],
       'operatingSystem' => 'Arduino',
@@ -34,5 +34,11 @@ data[:libraries].each_pair do |key,library|
 
   File.open("public/libraries/#{key}.json", 'wb') do |file|
     file.write JSON.pretty_generate(jsonld)
+  end
+  
+  RDF::Turtle::Writer.open("public/libraries/#{key}.ttl") do |writer|
+    JSON::LD::API.toRdf(jsonld) do |statement|
+      writer << statement
+    end
   end
 end

@@ -9,3 +9,9 @@ gem 'erubis'
 gem 'tilt'
 gem 'filesize'
 gem 'nokogiri'
+
+group :linkeddata do
+  gem 'rdf'
+  gem 'rdf-turtle'
+  gem 'json-ld'
+end
