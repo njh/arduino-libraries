@@ -11,6 +11,7 @@ data = JSON.parse(
   {:symbolize_names => true}
 )
 
+FileUtils.mkdir_p("public/libraries")
 
 data[:libraries].each_pair do |key,library|
   newest = library[:versions].first
