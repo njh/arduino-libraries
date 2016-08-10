@@ -14,8 +14,18 @@ file 'library_index.json' => 'arduino_library_index.json' do |task|
 end
 
 desc "Create Linked Data files"
-task :build_linkeddata => ['library_index.json'] do
+task :build_linkeddata => ['schema_org_context.json', 'library_index.json'] do
   ruby 'bin/build-linkeddata.rb'
+end
+
+desc "Download JSON context file from schema.org"
+file 'schema_org_context.json' do |task|
+  sh 'curl',
+     '--fail',
+     '--location',
+     '--output', task.name,
+     '--header', 'Accept: application/ld+json',
+     'http://schema.org/'
 end
 
 desc "Create HTML and sitemap files"

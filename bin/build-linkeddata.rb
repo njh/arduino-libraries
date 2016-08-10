@@ -11,6 +11,11 @@ data = JSON.parse(
   {:symbolize_names => true}
 )
 
+# Load the schema.org context data
+schema_org_context = JSON.parse(
+  File.read('schema_org_context.json')
+)
+
 FileUtils.mkdir_p("public/libraries")
 
 data[:libraries].each_pair do |key,library|
@@ -37,6 +42,9 @@ data[:libraries].each_pair do |key,library|
     file.write JSON.pretty_generate(jsonld)
   end
   
+  # This avoid
+  jsonld['@context'] = schema_org_context['@context'];
+
   RDF::Turtle::Writer.open("public/libraries/#{key}.ttl") do |writer|
     JSON::LD::API.toRdf(jsonld) do |statement|
       writer << statement
