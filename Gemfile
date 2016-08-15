@@ -12,5 +12,5 @@ gem 'nokogiri'
 group :linkeddata do
   gem 'rdf'
   gem 'rdf-turtle'
-  gem 'json-ld'
+  gem 'json-ld', '~> 2.0.1'
 end

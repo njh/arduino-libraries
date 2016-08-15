@@ -10,7 +10,7 @@ GEM
     hamster (3.0.0)
       concurrent-ruby (~> 1.0)
     json (2.0.2)
-    json-ld (2.0.0.1)
+    json-ld (2.0.1)
       multi_json (~> 1.11)
       rdf (~> 2.0)
     link_header (0.0.8)
@@ -40,7 +40,7 @@ DEPENDENCIES
   erubis
   filesize
   json
-  json-ld
+  json-ld (~> 2.0.1)
   nokogiri
   rake
   rdf
@@ -50,4 +50,4 @@ DEPENDENCIES
   webrick
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
