@@ -1,6 +1,7 @@
 arduino_library_index.json
 library_index.json
 schema_org_context.json
+github_repos.json
 public/architectures
 public/authors
 public/categories
