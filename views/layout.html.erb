@@ -22,6 +22,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" integrity="sha384-XYCjB+hFAjSbgf9yKUgbysEjaVLOXhCgATTEBpCqT1R3jvG5LGRAK5ZIyRbH5vpX" crossorigin="anonymous">
   <link rel="stylesheet" href="/style.css">
 
+  <% if jsonld %>
+  <link rel="alternate" type="application/ld+json" href="<%= url %>.json">
+  <link rel="alternate" type="text/turtle" href="<%= url %>.ttl">
+  <% end %>
+
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 
