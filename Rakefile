@@ -1,20 +1,20 @@
 #!/usr/bin/env ruby
 
 desc "Download the Library Index JSON file from arduino.cc"
-file 'arduino_library_index.json' do |task|
+file 'library_index_raw.json' do |task|
   sh 'curl',
      '--fail',
      '--output', task.name,
      'http://downloads.arduino.cc/libraries/library_index.json'
 end
 
-desc "Create the pre-processed index JSON file"
-file 'library_index.json' => 'arduino_library_index.json' do |task|
+desc "Create the clean index JSON file"
+file 'library_index_clean.json' => 'library_index_raw.json' do |task|
   ruby 'bin/build-clean-index.rb'
 end
 
 desc "Create Linked Data files"
-task :build_linkeddata => ['schema_org_context.json', 'library_index.json'] do
+task :build_linkeddata => ['schema_org_context.json', 'library_index_clean.json'] do
   ruby 'bin/build-linkeddata.rb'
 end
 

@@ -1,5 +1,5 @@
-arduino_library_index.json
-library_index.json
+library_index_raw.json
+library_index_clean.json
 schema_org_context.json
 github_repos.json
 public/architectures

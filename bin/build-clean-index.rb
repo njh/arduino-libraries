@@ -13,7 +13,7 @@ VersionSecificKeys = [
 
 # Load the library data
 source_data = JSON.parse(
-  File.read('arduino_library_index.json'),
+  File.read('library_index_raw.json'),
   {:symbolize_names => true}
 )
 
@@ -140,6 +140,6 @@ data[:libraries].each_pair do |key, library|
 end
 
 # Finally, write to back to disk
-File.open('library_index.json', 'wb') do |file|
+File.open('library_index_clean.json', 'wb') do |file|
   file.write JSON.pretty_generate(data)
 end
