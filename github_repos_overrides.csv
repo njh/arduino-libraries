@@ -26,6 +26,7 @@ io-t-pipe,iotpipe,esp8266-arduino-iotpipe
 konnekting-device-library,KONNEKTING,KonnektingDeviceLibrary
 mahony,PaulStoffregen,MahonyAHRS
 max30100lib,oxullo,Arduino-MAX30100
+meguno-link,Megunolink,MLP
 midea-ir-wrapper,WiserUFBA,ArduMideaWrapper
 mind-si,MINDS-i,MINDS-i
 minds-i-drone,MINDS-i,MINDS-i-Drone
@@ -49,6 +50,7 @@ somo-ii-lib,DefProc,somo-ii-lib
 spark-fun-max31855-k-thermocouple-digitizer,sparkfun,MAX31855K_Thermocouple_Breakout
 stereo-sid,daitangio,sid-arduino-lib
 svante,arduino,Svante-Workshop
+talk2,talk2wisen,Talk2Library
 thing-speak,mathworks,thingspeak-arduino
 u-arm-library,uArm-Developer,UArmForArduino
 usb-host-shield-library-2-0,felis,USB_Host_Shield_2.0
