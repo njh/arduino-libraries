@@ -1,3 +1,5 @@
 # robots.txt for http://www.arduinolibraries.info/
 User-agent: *
+Allow: /
+
 Sitemap: http://www.arduinolibraries.info/sitemap.xml
