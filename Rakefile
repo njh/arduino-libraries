@@ -13,6 +13,16 @@ file 'library_index_clean.json' => 'library_index_raw.json' do |task|
   ruby 'bin/build-clean-index.rb'
 end
 
+desc "Download information about repos from Github"
+file 'github_repos.json' => 'library_index_clean.json' do |task|
+  ruby 'bin/fetch-github-repos.rb'
+end
+
+desc "Create the index JSON file with added Github info"
+file 'library_index_with_github.json' => ['library_index_clean.json', 'github_repos.json'] do |task|
+  ruby 'bin/build-index-with-github.rb'
+end
+
 desc "Create Linked Data files"
 task :build_linkeddata => ['schema_org_context.json', 'library_index_clean.json'] do
   ruby 'bin/build-linkeddata.rb'
@@ -29,7 +39,7 @@ file 'schema_org_context.json' do |task|
 end
 
 desc "Create HTML and sitemap files"
-task :build_site => ['library_index.json'] do
+task :build_site => ['library_index_with_github.json'] do
   ruby 'bin/build-site.rb'
 end
 
