@@ -44,6 +44,10 @@ def render(filename, template, args={})
   Urls << url
 end
 
+def library_sort(libraries, key, limit=10)
+  libraries.values.sort_by {|library| library[key]}.reverse.slice(0, limit)
+end
+
 
 @count = data[:libraries].keys.count
 @types = data[:types]
@@ -56,7 +60,8 @@ render(
   :index,
   :title => "Arduino Library List",
   :description => "A catalogue of the #{@count} Arduino Libraries",
-  :categories => data[:categories]
+  :most_stars => library_sort(data[:libraries], :stargazers_count),
+  :most_forked => library_sort(data[:libraries], :forks)
 )
 
 render(
