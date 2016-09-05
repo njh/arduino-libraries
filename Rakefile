@@ -10,7 +10,7 @@ end
 
 desc "Create the pre-processed index JSON file"
 file 'library_index.json' => 'arduino_library_index.json' do |task|
-  ruby 'bin/build-index.rb'
+  ruby 'bin/build-clean-index.rb'
 end
 
 desc "Create Linked Data files"
