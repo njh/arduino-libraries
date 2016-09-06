@@ -29,7 +29,7 @@ file 'library_index_with_github.json' => ['library_index_clean.json', 'github_re
 end
 
 desc "Create Linked Data files"
-task :build_linkeddata => ['schema_org_context.json', 'library_index_clean.json'] do
+task :build_linkeddata => ['schema_org_context.json', 'library_index_with_github.json'] do
   ruby 'bin/build-linkeddata.rb'
 end
 
