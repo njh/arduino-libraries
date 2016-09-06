@@ -44,6 +44,10 @@ data[:libraries].each_pair do |key,library|
       version[:release_date] = github[:commit][:committer][:date]
     end
   end
+  
+  if library[:versions].first[:release_date]
+    library[:release_date] = library[:versions].first[:release_date]
+  end
 end
 
 # Finally, write to back to disk

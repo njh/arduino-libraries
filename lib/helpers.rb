@@ -8,6 +8,17 @@ class String
 end
 
 
+def days_ago(timestamp)
+  days = (Time.now - Time.parse(timestamp)) / 86400
+  if days <= 1
+    'today'
+  elsif days <= 2
+    'yesterday'
+  else
+    "#{days.floor} days ago"
+  end
+end
+
 def link_to(text, attributes={})
   attributes['href'] ||= text
   str = attributes.to_a.map {|k,v| "#{k}='#{v}'"}.join(' ')

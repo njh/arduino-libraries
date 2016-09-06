@@ -40,7 +40,11 @@ def render(filename, template, args={})
 end
 
 def library_sort(libraries, key, limit=10)
-  libraries.values.sort_by {|library| library[key]}.reverse.slice(0, limit)
+  libraries.values.
+    reject {|library| library[key].nil?}.
+    sort_by {|library| library[key]}.
+    reverse.
+    slice(0, limit)
 end
 
 
@@ -55,6 +59,7 @@ render(
   :index,
   :title => "Arduino Library List",
   :description => "A catalogue of the #{@count} Arduino Libraries",
+  :most_recent => library_sort(data[:libraries], :release_date),
   :most_stars => library_sort(data[:libraries], :stargazers_count),
   :most_forked => library_sort(data[:libraries], :forks)
 )

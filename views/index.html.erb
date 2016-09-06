@@ -5,7 +5,28 @@
 
 <div class="row">
 
-<div class="col-md-5">
+<div class="col-md-4">
+  <h2>
+    Most Recent
+    <small class="glyphicon glyphicon-time" aria-hidden="true"></small>
+  </h2>
+  <table class="table table-condensed table-striped">
+    <% most_recent.each_with_index do |library, index| %>
+      <tr>
+        <td><%= index + 1 %>.</td>
+        <td>
+          <%== link_to(library[:name], :href => "/libraries/#{library[:key]}") %>
+          <small>v<%= library[:version] %></small>
+        </td>
+        <td>
+          <i><%= days_ago(library[:release_date]) %></i>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="col-md-4">
   <h2>
     Most Starred
     <small class="glyphicon glyphicon-star" aria-hidden="true"></small>
@@ -21,9 +42,7 @@
   </table>
 </div>
 
-<div class="col-md-2"></div>
-
-<div class="col-md-5">
+<div class="col-md-4">
   <h2>
     Most Forked
     <small class="glyphicon glyphicon-random" aria-hidden="true"></small>
