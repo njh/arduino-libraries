@@ -23,15 +23,12 @@ Dir.foreach('views') do |filename|
   end
 end
 
-Urls = []
 def render(filename, template, args={})
   publicpath = "public/#{filename}"
   dirname = File.dirname(publicpath)
   FileUtils.mkdir_p(dirname) unless Dir.exist?(dirname)
 
-  url = "http://www.arduinolibraries.info/#{filename}"
-  url.sub!(%r|/index.html$|, '')
-  args[:url] ||= url
+  args[:url] ||= "http://www.arduinolibraries.info/#{filename}".sub!(%r|/index.html$|, '')
   args[:description] ||= nil
   args[:jsonld] ||= nil
   
@@ -40,8 +37,6 @@ def render(filename, template, args={})
       Templates[template].render(self, args)
     }
   end
-  
-  Urls << url
 end
 
 def library_sort(libraries, key, limit=10)
@@ -139,21 +134,4 @@ data[:libraries].each_pair do |key,library|
     :jsonld => jsonld,
     :library => library
   )
-end
-
-File.open('public/sitemap.xml', 'wb') do |file|
-  builder = Nokogiri::XML::Builder.new
-  builder.urlset(
-    'xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
-    'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
-    'xsi:schemaLocation' => 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
-  ) {
-    Urls.each do |url|
-      builder.url do
-        builder.loc(url)
-      end
-    end
-  }
-
-  file.write builder.to_xml
 end

@@ -43,13 +43,18 @@ file 'schema_org_context.json' do |task|
      'http://schema.org/'
 end
 
-desc "Create HTML and sitemap files"
+desc "Create HTML files"
 task :build_site => ['library_index_with_github.json'] do
   ruby 'bin/build-site.rb'
 end
 
+desc "Create sitemap file"
+file 'public/sitemap.xml' => ['library_index_with_github.json'] do
+  ruby 'bin/build-sitemap.rb'
+end
+
 desc "Generate all the required files in public"
-task :build => [:build_linkeddata, :build_site]
+task :build => [:build_linkeddata, :build_site, 'public/sitemap.xml']
 
 desc "Run a local web server on port 3000"
 task :server => :build do
