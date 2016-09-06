@@ -4,6 +4,12 @@ require 'bundler/setup'
 require 'find'
 Bundler.require(:default)
 
+# Load the library data
+data = JSON.parse(
+  File.read('library_index_with_github.json'),
+  {:symbolize_names => true}
+)
+
 
 File.open('public/sitemap.xml', 'wb') do |file|
   builder = Nokogiri::XML::Builder.new
@@ -20,6 +26,14 @@ File.open('public/sitemap.xml', 'wb') do |file|
       
       builder.url do
         builder.loc("http://www.arduinolibraries.info" + path)
+        if path =~ %r|/libraries/(.+)|
+          library = data[:libraries][$1.to_sym]
+          if library[:versions].first[:release_date]
+            builder.lastmod(library[:versions].first[:release_date])
+          end
+        elsif path == '/'
+          builder.changefreq('daily')
+        end
       end
     end
   }
