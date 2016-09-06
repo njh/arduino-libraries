@@ -34,6 +34,7 @@ mirobot,mirobot,mirobot-arduino
 modulo,modulolabs,modulo-lib
 neo-pixel-painter,DedeHai,NeoPixelPainter
 one-sheeld,Integreight,1Sheeld-Arduino-Library
+open-device,opendevice,opendevice-lib-arduino
 pid,br3ttb,Arduino-PID-Library
 pm2005-lib,jwagnerhki,arduino_pm2005lib
 r89m-buttons,r89m,Button
