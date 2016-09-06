@@ -18,10 +18,11 @@
 
 
 <h2>Downloads</h2>
-<table class="table">
+<table class="table table-striped table-condensed">
   <thead>
     <tr>
       <th>Filename</th>
+      <th>Release Date</th>
       <th>File Size</th>
     </tr>
   </thead>
@@ -30,8 +31,14 @@
   <% library[:versions].each do |version| %>
     <tr>
       <td><%== link_to(version[:archiveFileName], :href => version[:url]) %></td>
+      <td>
+        <% if version[:release_date] %>
+          <%== link_to(Time.parse(version[:release_date]).strftime('%Y-%m-%d'), :href => version[:github]) %>
+        <% else %>
+          
+        <% end %>
+      </td>
       <td><%= format_filesize(version[:size]) %></td>
-      <td><%#= version[:checksum] %></td>
     </tr>
   <% end %>
   </tbody>
