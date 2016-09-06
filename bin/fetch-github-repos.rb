@@ -29,8 +29,9 @@ data[:libraries].each_pair do |name,library|
     response = get_github("/repos/#{key}")
     if response.is_a?(Hash) and response[:message].nil?
       Repos[key] = response
+      puts "  => OK"
     else
-      puts " => #{response}"
+      puts "  => #{response}"
       exit(-1)
     end
 
