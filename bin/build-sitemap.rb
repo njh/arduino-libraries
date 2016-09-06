@@ -32,6 +32,7 @@ File.open('public/sitemap.xml', 'wb') do |file|
             builder.lastmod(library[:versions].first[:release_date])
           end
         elsif path == '/'
+          builder.lastmod(Time.now.utc.iso8601)
           builder.changefreq('daily')
         end
       end
