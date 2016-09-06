@@ -27,9 +27,9 @@ def find_tag(username, reponame, version)
   $tags[key] ||= get_github("/repos/#{username}/#{reponame}/tags").map {|tag| tag[:name]}
   $tags[key].each do |tag|
     majorminor = version.sub(/\.0$/, '')
-    if tag =~ /^v?#{version}$/i
+    if tag =~ /^v?_?#{version}$/i
       return tag
-    elsif tag =~ /^v?#{majorminor}$/i
+    elsif tag =~ /^v_?#{majorminor}$/i
       return tag
     end
   end
