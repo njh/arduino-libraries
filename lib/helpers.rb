@@ -42,3 +42,11 @@ end
 def format_filesize(bytes)
   Filesize.new(bytes).pretty
 end
+
+def library_sort(libraries, key, limit=10)
+  libraries.values.
+    reject {|library| library[key].nil?}.
+    sort_by {|library| library[key]}.
+    reverse.
+    slice(0, limit)
+end
