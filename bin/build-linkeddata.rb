@@ -7,7 +7,7 @@ Bundler.require(:default, :linkeddata)
 
 # Load the library data
 data = JSON.parse(
-  File.read('library_index_clean.json'),
+  File.read('library_index_with_github.json'),
   {:symbolize_names => true}
 )
 
@@ -39,10 +39,14 @@ data[:libraries].each_pair do |key,library|
       'fileSize' => newest[:size].to_i / 1024,
   }
 
+  if newest[:release_date]
+    jsonld['datePublished'] = Time.parse(newest[:release_date]).strftime('%Y-%m-%d')
+  end
+
   File.open("public/libraries/#{key}.json", 'wb') do |file|
     file.write JSON.pretty_generate(jsonld)
   end
-  
+
   RDF::Turtle::Writer.open("public/libraries/#{key}.ttl") do |writer|
     JSON::LD::API.toRdf(jsonld) do |statement|
       writer << statement
