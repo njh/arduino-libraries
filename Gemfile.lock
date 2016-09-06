@@ -10,9 +10,9 @@ GEM
     hamster (3.0.0)
       concurrent-ruby (~> 1.0)
     json (2.0.2)
-    json-ld (2.0.1)
+    json-ld (2.1.0)
       multi_json (~> 1.11)
-      rdf (~> 2.0)
+      rdf (~> 2.1)
     link_header (0.0.8)
     mini_portile2 (2.1.0)
     multi_json (1.12.1)
@@ -21,7 +21,7 @@ GEM
       pkg-config (~> 1.1.7)
     pkg-config (1.1.7)
     rake (11.2.2)
-    rdf (2.0.2)
+    rdf (2.1.0)
       hamster (~> 3.0)
       link_header (~> 0.0, >= 0.0.8)
     rdf-turtle (2.0.0)
@@ -40,7 +40,7 @@ DEPENDENCIES
   erubis
   filesize
   json
-  json-ld (~> 2.0.1)
+  json-ld (~> 2.1.0)
   nokogiri
   rake
   rdf
