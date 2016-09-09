@@ -28,7 +28,7 @@ File.open('public/sitemap.xml', 'wb') do |file|
         builder.loc("http://www.arduinolibraries.info" + path)
         if path =~ %r|/libraries/(.+)|
           library = data[:libraries][$1.to_sym]
-          if library[:versions].first[:release_date]
+          if library and library[:versions].first[:release_date]
             builder.lastmod(library[:versions].first[:release_date])
           end
         elsif path == '/'
