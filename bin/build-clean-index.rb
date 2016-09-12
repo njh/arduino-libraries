@@ -122,10 +122,14 @@ end
 data[:libraries].each_pair do |key, library|
   names = []
   library[:author].split(/\s*,\s*/).each do |author|
-    if author =~ /^(.+?)\s*(<.+>)?$/
+    if author =~ /^(.+?)\s*(<.+>)?/
       names << $1
     end
   end
+
+  # Remove email addresses
+  library[:author].gsub!(/\s*[\<\(].*[\>\)]\s*/, '')
+  library[:maintainer].gsub!(/\s*[\<\(].*[\>\)]\s*/, '')
 
   username = library[:username]
   data[:authors][username] ||= {}
