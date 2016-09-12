@@ -1,0 +1,44 @@
+body
+{
+	font: 92%/1.4 arial, helvetica, sans-serif;
+	color: #2F2C2C;
+	margin: 0px;
+	padding: 0px;
+}
+
+.main
+{
+  white-space: pre;
+	padding: 5px;
+	margin: 5px;
+}
+
+a
+{
+	color: #35568F;
+	text-decoration: none;
+}
+
+a:hover { text-decoration: underline; }
+
+.indent { margin-left: 1em; }
+
+.start-tag, .end-tag
+{
+	color: purple;
+	font-weight: bold;
+}
+
+.text { font-weight: normal; }
+
+.attribute-name
+{
+	color: black;
+	font-weight: bold;
+}
+
+.attribute-value, .attribute-quote
+{
+	color: blue;
+	font-weight: normal;
+}
