@@ -12,7 +12,7 @@ data = JSON.parse(
 
 libraries = library_sort(data[:libraries], :release_date, 50)
 
-template = Tilt::ErubisTemplate.new("views/feed.xml.erb")
+template = Tilt::ErubisTemplate.new("views/feed.xml.erb", :escape_html => true)
   
 File.open('public/feed.xml', 'wb') do |file|
   file.puts template.render(self,

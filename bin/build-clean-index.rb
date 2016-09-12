@@ -39,6 +39,7 @@ source_data[:libraries].each do |entry|
   entry[:types].map! {|t| t == 'Arduino' ? 'Official' : t }
   entry[:architectures].map! {|arch| arch.downcase }
   entry[:semver] = SemVer.parse(entry[:version])
+  entry[:sentence] = strip_html(entry[:sentence])
   entry[:website].sub!(%r[https?://(www\.)?github\.com/], 'https://github.com/')
   data[:libraries][key] ||= {}
   data[:libraries][key][:versions] ||= []

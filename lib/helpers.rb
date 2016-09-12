@@ -50,3 +50,7 @@ def library_sort(libraries, key, limit=10)
     reverse.
     slice(0, limit)
 end
+
+def strip_html(html)
+  Nokogiri::HTML(html).inner_text
+end
