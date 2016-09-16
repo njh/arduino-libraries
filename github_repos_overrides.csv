@@ -10,6 +10,7 @@ cayenne,myDevicesIoT,Cayenne-Arduino-Library
 cmd-messenger,thijse,Arduino-CmdMessenger
 cmmc-mqtt-connector,cmmakerclub,MQTT-Connector
 dcf77,thijse,Arduino-DCF77
+e-mo-ro-2560,inovatic-ict,emoro-2560-library
 easy-vr,RoboTech-srl,EasyVR-Arduino
 education-shield,arduino,EducationShield
 eeprom-ex,thijse,Arduino-EEPROMEx
@@ -52,6 +53,7 @@ spark-fun-max31855-k-thermocouple-digitizer,sparkfun,MAX31855K_Thermocouple_Brea
 stereo-sid,daitangio,sid-arduino-lib
 svante,arduino,Svante-Workshop
 talk2,talk2wisen,Talk2Library
+the-things-network,TheThingsNetwork,arduino-device-lib
 thing-speak,mathworks,thingspeak-arduino
 u-arm-library,uArm-Developer,UArmForArduino
 usb-host-shield-library-2-0,felis,USB_Host_Shield_2.0
