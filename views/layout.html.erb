@@ -74,7 +74,7 @@
             <a href="/architectures" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Architectures <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <% @architectures.keys.sort.each do |architecture| %>
-                <li><%== link_to(architecture, :href => "/architecures/#{architecture.to_s.keyize}") %></li>
+                <li><%== link_to(architecture, :href => "/architectures/#{architecture.to_s.keyize}") %></li>
               <% end %>
             </ul>
           </li>
