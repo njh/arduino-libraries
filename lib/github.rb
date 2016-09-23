@@ -1,12 +1,20 @@
 require 'net/https'
 require 'json'
 
-def get_github(path)
-  http = Net::HTTP.new('api.github.com', 443)
-  http.use_ssl = true
-  http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+GITHUB_API = 'https://api.github.com/'
 
-  request = Net::HTTP::Get.new(path)
+def get_github(path, parameters={})
+  uri = Addressable::URI.parse(GITHUB_API)
+  uri.path = path
+  uri.query_values = parameters
+  
+  http = Net::HTTP.new(uri.host, uri.inferred_port)
+  if uri.scheme == 'https'
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+  end
+
+  request = Net::HTTP::Get.new(uri.request_uri)
   request['ACCEPT'] = 'application/json'
   request['USER_AGENT'] = 'arduniolibraries.info fetcher '
   if ENV['GITHUB_API_TOKEN']
