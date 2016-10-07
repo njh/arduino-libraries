@@ -25,6 +25,7 @@ ibm-lmic-framework,matthijskooijman,arduino-lmic-v1.5
 infrared,bengtmartensson,Infrared4Arduino
 io-t-pipe,iotpipe,esp8266-arduino-iotpipe
 konnekting-device-library,KONNEKTING,KonnektingDeviceLibrary
+lidar-lite-v3,garmin,LIDARLite_v3_Arduino_Library
 mahony,PaulStoffregen,MahonyAHRS
 max30100lib,oxullo,Arduino-MAX30100
 meguno-link,Megunolink,MLP
