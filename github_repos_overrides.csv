@@ -5,6 +5,7 @@ adafruit-led-backpack-library,adafruit,Adafruit_LED_Backpack
 adafruit-liquid-crystal,adafruit,Adafruit_LiquidCrystal
 adafruit-mpr121,adafruit,Adafruit_MPR121
 asip-services,mdxmase,asip
+azure-io-t-hub,Azure,azure-iot-arduino
 blynk,blynkkk,blynk-library
 cayenne,myDevicesIoT,Cayenne-Arduino-Library
 cmd-messenger,thijse,Arduino-CmdMessenger
