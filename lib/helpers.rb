@@ -19,6 +19,32 @@ def days_ago(timestamp)
   end
 end
 
+def fix_url(url)
+  if url.nil? or url.strip == ''
+    return nil
+  end
+
+  # Add http:// if there isn't one
+  unless url =~ /^http/
+    url = "http://#{url}"
+  end
+
+  # Add a trailing slash, if there isn't one
+  unless url =~ %r[^https?://.+/]
+    url += '/'
+  end
+
+  if url =~ /github\.com/
+    # Remove www. from github URLs
+    url.sub!(%r[https?://(www\.)?github\.com/], 'https://github.com/')
+  
+    # Remove .git from the end of Github urls
+    url.sub!(%r[\.git$], '')
+  end
+  
+  return url
+end
+
 def link_to(text, attributes={})
   attributes['href'] ||= text
   str = attributes.to_a.map {|k,v| "#{k}='#{v}'"}.join(' ')

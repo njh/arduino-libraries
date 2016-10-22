@@ -61,7 +61,7 @@ data[:authors].each_pair do |username,author|
     if !github[:name].nil? and github[:name] != username
       author[:name] = github[:name]
     end
-    author[:homepage] = github[:blog]
+    author[:homepage] = fix_url(github[:blog])
     author[:location] = github[:location]
     author[:company] = github[:company]
   end

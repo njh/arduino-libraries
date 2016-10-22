@@ -40,11 +40,7 @@ source_data[:libraries].each do |entry|
   entry[:architectures].map! {|arch| arch.downcase }
   entry[:semver] = SemVer.parse(entry[:version])
   entry[:sentence] = strip_html(entry[:sentence])
-  unless entry[:website] =~ /^http/
-    entry[:website] = 'http://' + entry[:website]
-  end 
-  entry[:website].sub!(%r[https?://(www\.)?github\.com/], 'https://github.com/')
-  entry[:website].sub!(%r[\.git$], '')
+  entry[:sentence] = fix_url(entry[:website])
   data[:libraries][key] ||= {}
   data[:libraries][key][:versions] ||= []
   data[:libraries][key][:versions] << entry
