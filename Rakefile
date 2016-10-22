@@ -23,8 +23,13 @@ file 'github_commits.json' => 'library_index_clean.json' do |task|
   ruby 'bin/fetch-github-commits.rb'
 end
 
+desc "Download information about users from Github"
+file 'github_users.json' => 'library_index_clean.json' do |task|
+  ruby 'bin/fetch-github-users.rb'
+end
+
 desc "Create the index JSON file with added Github info"
-file 'library_index_with_github.json' => ['library_index_clean.json', 'github_repos.json', 'github_commits.json'] do |task|
+file 'library_index_with_github.json' => ['library_index_clean.json', 'github_repos.json', 'github_commits.json', 'github_users.json'] do |task|
   ruby 'bin/build-index-with-github.rb'
 end
 

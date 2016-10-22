@@ -4,6 +4,7 @@ library_index_with_github.json
 schema_org_context.json
 github_commits.json
 github_repos.json
+github_users.json
 public/architectures
 public/authors
 public/categories

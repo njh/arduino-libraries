@@ -134,6 +134,7 @@ data[:libraries].each_pair do |key, library|
   username = library[:username]
   data[:authors][username] ||= {}
   data[:authors][username][:name] = library[:author]
+  data[:authors][username][:github] = "https://github.com/#{username}"
   data[:authors][username][:libraries] ||= []
   data[:authors][username][:libraries] << key
 end

@@ -21,6 +21,11 @@ github_repos = JSON.parse(
   {:symbolize_names => true}
 )
 
+github_users = JSON.parse(
+  File.read('github_users.json'),
+  {:symbolize_names => true}
+)
+
 github_commits = JSON.parse(
   File.read('github_commits.json'),
   {:symbolize_names => true}
@@ -48,6 +53,19 @@ data[:libraries].each_pair do |key,library|
   if library[:versions].first[:release_date]
     library[:release_date] = library[:versions].first[:release_date]
   end
+end
+
+data[:authors].each_pair do |username,author|
+  github = github_users[username.to_sym]
+  unless github.nil?
+    if !github[:name].nil? and github[:name] != username
+      author[:name] = github[:name]
+    end
+    author[:homepage] = github[:blog]
+    author[:location] = github[:location]
+    author[:company] = github[:company]
+  end
+
 end
 
 # Finally, write to back to disk
