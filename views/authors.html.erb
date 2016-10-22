@@ -2,6 +2,7 @@
   <% authors.keys.sort.each do |username| %>
     <% author = authors[username] %>
     <li>
+      <%= username %>:
       <%== link_to(author[:name], :href => "/authors/#{username}") %>
       (<%= author[:libraries].count %>)
     </li>
