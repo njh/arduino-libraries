@@ -127,24 +127,13 @@ EMAIL_REGEXP = Regexp.new('\s*<.*>\s*')
 
 # Create an index of the Authors
 data[:libraries].each_pair do |key, library|
-  names = []
-  library[:author].split(/\s*,\s*/).each do |author|
-    author.gsub!(EMAIL_REGEXP, '')
-    names << author
-  end
-
   # Remove email addresses
   library[:author].gsub!(EMAIL_REGEXP, '')
   library[:maintainer].gsub!(EMAIL_REGEXP, '')
 
   username = library[:username]
   data[:authors][username] ||= {}
-  data[:authors][username][:names] ||= []
-  names.each do |name|
-    unless data[:authors][username][:names].include?(name)
-      data[:authors][username][:names] << name
-    end
-  end
+  data[:authors][username][:name] = library[:author]
   data[:authors][username][:libraries] ||= []
   data[:authors][username][:libraries] << key
 end

@@ -115,7 +115,7 @@ data[:authors].each_pair do |username,author|
   render(
     "authors/#{username}/index.html",
     :author,
-    :title => author[:names].first,
+    :title => author[:name],
     :username => username,
     :author => author,
     :libraries => data[:libraries]
