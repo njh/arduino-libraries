@@ -29,7 +29,7 @@ def find_tag(username, reponame, version)
     majorminor = version.sub(/\.0$/, '')
     if tag =~ /^v?_?#{version}$/i
       return tag
-    elsif tag =~ /^v_?#{majorminor}$/i
+    elsif tag =~ /^v?_?#{majorminor}$/i
       return tag
     end
   end
