@@ -40,7 +40,7 @@ source_data[:libraries].each do |entry|
   entry[:architectures].map! {|arch| arch.downcase }
   entry[:semver] = SemVer.parse(entry[:version])
   entry[:sentence] = strip_html(entry[:sentence])
-  entry[:sentence] = fix_url(entry[:website])
+  entry[:website] = fix_url(entry[:website])
   data[:libraries][key] ||= {}
   data[:libraries][key][:versions] ||= []
   data[:libraries][key][:versions] << entry
