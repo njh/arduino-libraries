@@ -13,9 +13,12 @@
 
 
 <h2>Libraries</h2>
-<ul>
-  <% author[:libraries].each do |key| %>
+<table class="table">
+  <% author[:libraries].sort.each do |key| %>
     <% library = libraries[key.to_sym] %>
-    <li><%== link_to(library[:name], :href => "/libraries/#{key}") %></li>
+    <tr>
+      <td><%== link_to(library[:name], :href => "/libraries/#{key}") %></td>
+      <td><%= library[:sentence] %></td>
+    </tr>
   <% end %>
-</ul>
+</table>
