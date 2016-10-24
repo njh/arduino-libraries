@@ -102,7 +102,7 @@ end
 
 desc "Upload the files in public/ to the live web server"
 task :upload => :build do
-  sh 'rsync -avz --delete -e ssh public/ arduinolibs@www.arduinolibraries.info:/srv/www/arduino-libraries/'
+  sh 'rsync -avz --delete --exclude=.DS_Store -e ssh public/ arduinolibs@www.arduinolibraries.info:/srv/www/arduino-libraries/'
 end
 
 task :default => :build
