@@ -33,14 +33,14 @@ data[:authors].each_pair do |username,user|
       end
       Users[username] = response
       puts "  => OK"
+
+      # Regularly write to disk, so we can re-start the script
+      File.open('github_users.json', 'wb') do |file|
+        file.write JSON.pretty_generate(Users)
+      end
     else
       puts "  => #{response}"
       exit(-1)
-    end
-
-    # Regularly write to disk, so we can re-start the script
-    File.open('github_users.json', 'wb') do |file|
-      file.write JSON.pretty_generate(Users)
     end
   end
 end

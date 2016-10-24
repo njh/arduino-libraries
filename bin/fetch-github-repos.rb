@@ -30,14 +30,14 @@ data[:libraries].each_pair do |name,library|
     if response.is_a?(Hash) and response[:message].nil?
       Repos[key] = response
       puts "  => OK"
+
+      # Regularly write to disk, so we can re-start the script
+      File.open('github_repos.json', 'wb') do |file|
+        file.write JSON.pretty_generate(Repos)
+      end
     else
       puts "  => #{response}"
       exit(-1)
-    end
-
-    # Regularly write to disk, so we can re-start the script
-    File.open('github_repos.json', 'wb') do |file|
-      file.write JSON.pretty_generate(Repos)
     end
   end
 end

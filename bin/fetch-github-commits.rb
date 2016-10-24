@@ -37,7 +37,7 @@ def find_tag(username, reponame, version)
   return nil
 end
 
-
+do_write = false
 data[:libraries].each_pair do |name,library|
   library[:versions].each do |version|
     key = "#{library[:username]}/#{library[:reponame]}/#{version[:version]}"
@@ -48,6 +48,7 @@ data[:libraries].each_pair do |name,library|
       if tag.nil?
         puts "  => Failed to find tag for version"
         Commits[key] = nil
+        do_write = true
         next
       end
 
@@ -55,16 +56,21 @@ data[:libraries].each_pair do |name,library|
       if response.is_a?(Hash) and response[:message].nil?
         Commits[key] = response
         Commits[key][:tag] = tag
+        do_write = true
         puts "  => Ok"
       else
         puts "  => #{response}"
         exit(-1)
       end
     end
+
+    # Regularly write to disk, so we can re-start the script
+    if do_write
+      File.open('github_commits.json', 'wb') do |file|
+        file.write JSON.pretty_generate(Commits)
+      end
+      do_write = false
+    end
   end
 
-  # Regularly write to disk, so we can re-start the script
-  File.open('github_commits.json', 'wb') do |file|
-    file.write JSON.pretty_generate(Commits)
-  end
 end
