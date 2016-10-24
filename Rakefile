@@ -8,6 +8,21 @@ file 'library_index_raw.json' do |task|
      'http://downloads.arduino.cc/libraries/library_index.json'
 end
 
+desc "Download extra information about authors"
+file 'authors_extras.csv' do |task|
+  sh 'curl',
+     '--fail',
+     '--output', task.name,
+     'https://docs.google.com/spreadsheets/d/1ARqkeEmVVApylSDVZ6s_97-YtvlklE8k05F2EOlO0MY/pub?gid=465469161&single=true&output=csv'
+end
+
+namespace :twitter do
+  desc "Follow everyone listed in the authors file"
+  task :follow => 'authors_extras.csv' do
+    ruby 'bin/twitter-follow.rb'
+  end
+end
+
 desc "Create the clean index JSON file"
 file 'library_index_clean.json' => 'library_index_raw.json' do |task|
   ruby 'bin/build-clean-index.rb'

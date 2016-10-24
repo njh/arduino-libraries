@@ -10,6 +10,9 @@ gem 'tilt'
 gem 'filesize'
 gem 'nokogiri'
 
+gem 'twitter'
+gem 'faraday', '~> 0.8.11'
+
 group :linkeddata do
   gem 'rdf'
   gem 'rdf-turtle'
