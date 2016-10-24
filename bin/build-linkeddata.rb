@@ -53,3 +53,29 @@ data[:libraries].each_pair do |key,library|
     end
   end
 end
+
+
+FileUtils.mkdir_p("public/authors")
+
+data[:authors].each_pair do |key,author|
+  jsonld = {
+      '@context' => 'http://schema.org/',
+      '@type' => 'Person',
+      'name' => author[:name],
+      'sameAs' => [author[:github]]
+  }
+
+  jsonld['sameAs'] << "https://twitter.com/#{author[:twitter]}" unless author[:twitter].nil?
+  jsonld['url'] = author[:homepage] unless author[:homepage].nil?
+  jsonld['homeLocation'] = author[:location] unless author[:location].nil?
+
+  File.open("public/authors/#{key}.json", 'wb') do |file|
+    file.write JSON.pretty_generate(jsonld)
+  end
+
+  RDF::Turtle::Writer.open("public/authors/#{key}.ttl") do |writer|
+    JSON::LD::API.toRdf(jsonld) do |statement|
+      writer << statement
+    end
+  end
+end

@@ -118,19 +118,18 @@ data[:authors].each_pair do |username,author|
     :title => author[:name],
     :username => username,
     :author => author,
+    :jsonld => File.read("public/authors/#{username}.json"),
     :libraries => data[:libraries]
   )
 end
 
 data[:libraries].each_pair do |key,library|
-  jsonld = File.read("public/libraries/#{key}.json")
-
   render(
     "libraries/#{key}/index.html",
     :show,
     :title => library[:name],
     :description => library[:sentence],
-    :jsonld => jsonld,
+    :jsonld => File.read("public/libraries/#{key}.json"),
     :library => library
   )
 end
