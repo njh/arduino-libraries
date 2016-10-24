@@ -25,6 +25,15 @@ CSV.foreach('repos_extras.csv', :headers => true) do |row|
   username_overrides[row['key']] = row['username']
 end
 
+author_extras = {}
+CSV.foreach('authors_extras.csv', :headers => true) do |row|
+  username = row['Username'].downcase
+  author_extras[username] ||= {}
+  row.to_hash.each_pair do |key,value|
+    author_extras[username][key.downcase.to_sym] = value
+  end
+end
+
 data = {
   :libraries => {},
   :types => {},
@@ -128,9 +137,13 @@ data[:libraries].each_pair do |key, library|
   library[:maintainer].gsub!(EMAIL_REGEXP, '')
 
   username = library[:username]
+  extras = author_extras[username]
+  raise "Author not found in extras file: #{username}" if extras.nil?
+  
   data[:authors][username] ||= {}
   data[:authors][username][:name] = library[:author]
   data[:authors][username][:github] = "https://github.com/#{username}"
+  data[:authors][username][:twitter] = extras[:twitter]
   data[:authors][username][:libraries] ||= []
   data[:authors][username][:libraries] << key
 end

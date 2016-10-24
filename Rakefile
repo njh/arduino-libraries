@@ -32,7 +32,7 @@ namespace :twitter do
 end
 
 desc "Create the clean index JSON file"
-file 'library_index_clean.json' => ['library_index_raw.json', 'repos_extras.csv'] do |task|
+file 'library_index_clean.json' => ['library_index_raw.json', 'authors_extras.csv', 'repos_extras.csv'] do |task|
   ruby 'bin/build-clean-index.rb'
 end
 
