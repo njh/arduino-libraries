@@ -1,6 +1,9 @@
+# Contains secrets
 twitter_config.rb
 
+# Downloaded from Google Docs
 authors_extras.csv
+repos_extras.csv
 
 library_index_raw.json
 library_index_clean.json

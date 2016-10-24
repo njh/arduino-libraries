@@ -20,7 +20,7 @@ source_data = JSON.parse(
 # Load the overrides files - where the github repo name doesn't mark the library name
 reponame_overrides = {}
 username_overrides = {}
-CSV.foreach('github_repos_overrides.csv', :headers => true) do |row|
+CSV.foreach('repos_extras.csv', :headers => true) do |row|
   reponame_overrides[row['key']] = row['reponame']
   username_overrides[row['key']] = row['username']
 end
