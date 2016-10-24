@@ -144,6 +144,7 @@ data[:libraries].each_pair do |key, library|
   data[:authors][username][:name] = library[:author]
   data[:authors][username][:github] = "https://github.com/#{username}"
   data[:authors][username][:twitter] = extras[:twitter]
+  data[:authors][username][:homepage] = fix_url(extras[:homepage])
   data[:authors][username][:libraries] ||= []
   data[:authors][username][:libraries] << key
 end
