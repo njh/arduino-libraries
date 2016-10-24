@@ -47,6 +47,7 @@ data[:libraries].each_pair do |name,library|
       tag = find_tag(library[:username], library[:reponame], version[:version])
       if tag.nil?
         puts "  => Failed to find tag for version"
+        Commits[key] = nil
         next
       end
 
