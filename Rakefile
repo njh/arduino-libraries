@@ -29,6 +29,11 @@ namespace :twitter do
   task :follow => 'authors_extras.csv' do
     ruby 'bin/twitter-follow.rb'
   end
+
+  desc "Publish tweets about latest releases"
+  task :publish => ['library_index_with_github.json'] do
+    ruby 'bin/twitter-publish.rb'
+  end
 end
 
 desc "Create the clean index JSON file"
