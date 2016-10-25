@@ -2,7 +2,7 @@
 
 require 'bundler/setup'
 Bundler.require(:default)
-require './twitter_config'
+require './lib/twitter_config'
 require 'csv'
 
 CSV.foreach('authors_extras.csv', :headers => true) do |row|

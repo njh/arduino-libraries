@@ -3,7 +3,7 @@
 require 'bundler/setup'
 Bundler.require(:default)
 require './lib/helpers'
-require './twitter_config'
+require './lib/twitter_config'
 
 
 # Load the library data
