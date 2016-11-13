@@ -44,7 +44,7 @@ data[:libraries].each_pair do |key,library|
     github_version_key = "#{github_key}/#{version[:version]}"
     github = github_commits[github_version_key.to_sym]
     unless github.nil?
-      version[:github] = "#{library[:github]}/tree/#{github[:tag]}"
+      version[:github] = "#{library[:github]}/commits/#{github[:tag]}"
       version[:git_sha] = github[:sha]
       version[:release_date] = github[:commit][:committer][:date]
     end
