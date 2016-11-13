@@ -5,12 +5,25 @@ Bundler.require(:default)
 require './lib/twitter_config'
 require 'csv'
 
+following = []
+$twitter.friends(:skip_status => true).each do |friend|
+  following << friend.screen_name.downcase
+end
+
 CSV.foreach('authors_extras.csv', :headers => true) do |row|
-  next unless row['Twitter'] =~ /\w+/
-  
-  puts "Following: #{row['Twitter']}"
-  result = $twitter.follow!(row['Twitter'])
-  unless result.empty?
-    puts " => Ok"
+  screenname = row['Twitter']
+  next unless screenname =~ /\w+/
+  screenname.downcase!
+
+  puts "Following: #{screenname}"
+  if following.include?(screenname)
+    puts " => Already following"
+  else
+    result = $twitter.follow!(screenname)
+    unless result.empty?
+      puts " => Ok"
+    end
   end
+  
+  puts
 end
