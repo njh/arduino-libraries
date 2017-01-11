@@ -19,9 +19,14 @@ CSV.foreach('authors_extras.csv', :headers => true) do |row|
   if following.include?(screenname)
     puts " => Already following"
   else
-    result = $twitter.follow!(screenname)
-    unless result.empty?
-      puts " => Ok"
+  	user = $twitter.user(screenname)
+  	if user.protected
+      puts " => User protected"
+    else
+      result = $twitter.follow!(user)
+      unless result.empty?
+        puts " => Ok"
+      end
     end
     sleep 1
   end
