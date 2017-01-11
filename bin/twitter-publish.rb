@@ -49,5 +49,6 @@ libraries.reverse.each do |library|
     # Send tweet
     puts " => sending"
     $twitter.update(lines.join("\n"))
+    sleep 1
   end
 end
