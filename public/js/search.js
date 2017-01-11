@@ -1,17 +1,16 @@
 "use strict";
 
-var search_index = new Bloodhound({
-    identify: function (obj) {
-        return obj.key;
-    },
-    datumTokenizer: function (datum) {
-        return Bloodhound.tokenizers.whitespace(datum.name + " " + datum.sentence);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: {
-        url: '/search-index.json',
-        cache: false
-    }
+var fuse = new Fuse([], {
+    keys: ['key', 'name', 'sentence'],
+    minMatchCharLength: 2,
+    shouldSort: true,
+    threshold: 0.2,
+    tokenize: true
+});
+
+/* FIXME: provide feedback on AJAX progress/failure? */
+$.getJSON( "/search-index.json", function( data ) {
+    fuse.set(data);
 });
 
 $('#search-box').typeahead({
@@ -20,8 +19,10 @@ $('#search-box').typeahead({
     highlight: true,
 }, {
     name: "arduino-libraries",
-    source: search_index,
     limit: 10,
+    source: function(query, syncResults) {
+        syncResults(fuse.search(query));
+    },
     display: function (library) {
         return library.name
     },
