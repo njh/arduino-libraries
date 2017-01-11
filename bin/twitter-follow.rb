@@ -6,7 +6,7 @@ require './lib/twitter_config'
 require 'csv'
 
 following = []
-$twitter.friends(:skip_status => true).each do |friend|
+$twitter.friends(:count => 200, :skip_status => true).each do |friend|
   following << friend.screen_name.downcase
 end
 
@@ -23,7 +23,8 @@ CSV.foreach('authors_extras.csv', :headers => true) do |row|
     unless result.empty?
       puts " => Ok"
     end
+    sleep 1
   end
-  
+
   puts
 end
