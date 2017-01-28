@@ -44,7 +44,10 @@ data = {
 
 # First collate the versions
 source_data[:libraries].each do |entry|
-  entry[:key] = key = entry[:name].keyize
+  key = entry[:name].keyize
+  next if key.nil? or key.empty?
+
+  entry[:key] = key
   entry[:types].map! {|t| t == 'Arduino' ? 'Official' : t }
   entry[:architectures].map! {|arch| arch.downcase }
   entry[:semver] = SemVer.parse(entry[:version])
