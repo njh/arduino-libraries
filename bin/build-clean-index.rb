@@ -95,7 +95,7 @@ data[:libraries].each_pair do |key, library|
     # Check if an repo name override is set
     if reponame_overrides.has_key?(key)
       reponame = reponame_overrides[key]
-    elsif library[:website] =~ %r|github\.com/#{username}/([\w\-]+)|i
+    elsif library[:website] =~ %r|github\.com/#{username}/([\w\-\.]+)|i
       # If a website is given try using that if preference to download name
       reponame = $1
     end
