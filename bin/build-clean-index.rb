@@ -84,7 +84,7 @@ data[:libraries].each_pair do |key, library|
   end
 
   # Work out the Github URL
-  if newest[:url] =~ %r|http://downloads.arduino.cc/libraries/([\w\-]+)/([\w\-]+)-|i
+  if newest[:url] =~ %r|http://downloads\.arduino\.cc/libraries/github\.com/([\w\-]+)/([\w\-]+)-|i
     username, reponame = $1, $2
 
     # Check if an username override is set
@@ -103,6 +103,8 @@ data[:libraries].each_pair do |key, library|
     library[:username] = username.downcase
     library[:reponame] = reponame.downcase
     library[:github] = "https://github.com/#{username}/#{reponame}"
+  else
+    puts "Got download that isn't from github.com"
   end
 end
 
