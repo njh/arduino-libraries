@@ -142,17 +142,22 @@ data[:libraries].each_pair do |key, library|
   library[:maintainer].gsub!(EMAIL_REGEXP, '')
 
   username = library[:username]
-  extras = author_extras[username]
-  raise "Author not found in extras file: #{username}" if extras.nil?
-  
   data[:authors][username] ||= {}
   data[:authors][username][:name] = library[:author]
   data[:authors][username][:github] = "https://github.com/#{username}"
-  data[:authors][username][:twitter] = extras[:twitter]
-  data[:authors][username][:homepage] = fix_url(extras[:homepage])
   data[:authors][username][:libraries] ||= []
   data[:authors][username][:libraries] << key
+
+  extras = author_extras[username]
+  if extras.nil?
+    $stderr.puts "Warning: author not found in extras file: #{username}"
+  else
+    data[:authors][username][:twitter] = extras[:twitter]
+    data[:authors][username][:homepage] = fix_url(extras[:homepage])
+  end
+
 end
+
 
 # Finally, write to back to disk
 File.open('library_index_clean.json', 'wb') do |file|
