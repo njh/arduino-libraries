@@ -4,6 +4,8 @@ desc "Download the Library Index JSON file from arduino.cc"
 file 'library_index_raw.json' do |task|
   sh 'curl',
      '--fail',
+     '--silent',
+     '--show-error',
      '--output', task.name,
      'http://downloads.arduino.cc/libraries/library_index.json'
 end
@@ -12,6 +14,8 @@ desc "Download extra information about authors"
 file 'authors_extras.csv' do |task|
   sh 'curl',
      '--fail',
+     '--silent',
+     '--show-error',
      '--output', task.name,
      'https://docs.google.com/spreadsheets/d/1ARqkeEmVVApylSDVZ6s_97-YtvlklE8k05F2EOlO0MY/pub?gid=465469161&single=true&output=csv'
 end
@@ -20,6 +24,8 @@ desc "Download extra information about repositories"
 file 'repos_extras.csv' do |task|
   sh 'curl',
      '--fail',
+     '--silent',
+     '--show-error',
      '--output', task.name,
      'https://docs.google.com/spreadsheets/d/1ARqkeEmVVApylSDVZ6s_97-YtvlklE8k05F2EOlO0MY/pub?gid=278607893&single=true&output=csv'
 end
@@ -70,6 +76,8 @@ desc "Download JSON context file from schema.org"
 file 'schema_org_context.json' do |task|
   sh 'curl',
      '--fail',
+     '--silent',
+     '--show-error',
      '--location',
      '--output', task.name,
      '--header', 'Accept: application/ld+json',
