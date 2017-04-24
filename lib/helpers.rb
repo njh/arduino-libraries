@@ -80,3 +80,7 @@ end
 def strip_html(html)
   Nokogiri::HTML(html).inner_text
 end
+
+def remove_links(text)
+  text.gsub(%r|(\w+)://|, '')
+end

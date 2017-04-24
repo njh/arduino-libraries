@@ -39,7 +39,7 @@ libraries.reverse.each do |library|
     if remaining < 1
       raise "Tweet is too long"
     elsif remaining > 20
-      lines << library[:sentence].strip
+      lines << remove_links(library[:sentence].strip)
       if lines[2].length > remaining
         # Trim third line if it is too long
         lines[2] = lines[2][0..remaining].sub(/\s*\w+$/, ' …')
