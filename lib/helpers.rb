@@ -82,5 +82,5 @@ def strip_html(html)
 end
 
 def remove_links(text)
-  text.gsub(%r|(\w+)://|, '')
+  text.gsub(%r|(\w+)://|, '').gsub(/(\w+)\.(\w+)/, '\\1․\\2')
 end
