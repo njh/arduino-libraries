@@ -18,11 +18,16 @@ source_data = JSON.parse(
 )
 
 # Load the overrides files - where the github repo name doesn't mark the library name
+disabled = []
 reponame_overrides = {}
 username_overrides = {}
 CSV.foreach('repos_extras.csv', :headers => true) do |row|
-  reponame_overrides[row['key']] = row['reponame']
-  username_overrides[row['key']] = row['username']
+  if row['type'] == 'disabled'
+    disabled << row['key']
+  else
+    reponame_overrides[row['key']] = row['reponame']
+    username_overrides[row['key']] = row['username']
+  end
 end
 
 author_extras = {}
@@ -46,6 +51,7 @@ data = {
 source_data[:libraries].each do |entry|
   key = entry[:name].keyize
   next if key.nil? or key.empty?
+  next if disabled.include?(key)
 
   entry[:key] = key
   entry[:types].map! {|t| t == 'Arduino' ? 'Official' : t }
