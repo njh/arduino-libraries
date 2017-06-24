@@ -24,7 +24,13 @@ end
 $tags = {}
 def find_tag(username, reponame, version)
   key = [username, reponame].join('/')
-  $tags[key] ||= get_github("/repos/#{username}/#{reponame}/tags").map {|tag| tag[:name]}
+  if $tags[key].nil?
+    result = get_github("/repos/#{username}/#{reponame}/tags")
+    if result.include?(:message)
+      raise result[:message]
+    end
+    $tags[key] = result.map {|tag| tag[:name]}
+  end
   $tags[key].each do |tag|
     majorminor = version.sub(/\.0$/, '')
     if tag =~ /^v?_?#{version}$/i
@@ -42,7 +48,7 @@ data[:libraries].each_pair do |name,library|
   library[:versions].each do |version|
     key = "#{library[:username]}/#{library[:reponame]}/#{version[:version]}"
     unless Commits.has_key?(key.to_sym)
-      puts "Looking up: #{key}"
+      puts "Looking up #{name}: #{key}"
 
       tag = find_tag(library[:username], library[:reponame], version[:version])
       if tag.nil?
