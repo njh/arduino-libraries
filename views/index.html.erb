@@ -102,7 +102,7 @@
   <ul>
     <% @architectures.keys.sort.each do |architecture| %>
       <li>
-        <%== link_to(architecture.capitalize, :href => "/architectures/#{architecture.to_s.keyize}") %>
+        <%== link_to(architecture, :href => "/architectures/#{architecture.to_s.keyize}") %>
         (<%= @architectures[architecture].count %>)
       </li>
     <% end %>
