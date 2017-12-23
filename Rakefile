@@ -7,7 +7,7 @@ file 'library_index_raw.json' do |task|
      '--silent',
      '--show-error',
      '--output', task.name,
-     'http://downloads.arduino.cc/libraries/library_index.json'
+     'https://downloads.arduino.cc/libraries/library_index.json'
 end
 
 desc "Download extra information about authors"
