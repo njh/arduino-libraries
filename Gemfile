@@ -3,15 +3,15 @@ source "https://rubygems.org"
 gem 'addressable'
 gem 'json'
 gem 'rake'
-gem 'webrick'
+gem 'webrick', '> 1.4.0'
 gem 'semverly'
 gem 'erubis'
 gem 'tilt'
 gem 'filesize'
 gem 'nokogiri'
 
-gem 'twitter'
-gem 'faraday', '~> 0.8.11'
+gem 'twitter', '~> 6.2.0'
+gem 'faraday'
 
 group :linkeddata do
   gem 'rdf'

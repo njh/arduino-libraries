@@ -1,61 +1,73 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.4.0)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     buftok (0.2.0)
-    concurrent-ruby (1.0.2)
-    descendants_tracker (0.0.4)
-      thread_safe (~> 0.3, >= 0.3.1)
-    ebnf (1.0.1)
-      rdf (~> 2.0)
+    concurrent-ruby (1.0.5)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
+    ebnf (1.1.2)
+      rdf (>= 2.2, < 4.0)
       sxp (~> 1.0)
     equalizer (0.0.11)
     erubis (2.7.0)
-    faraday (0.8.11)
-      multipart-post (~> 1.2.0)
+    faraday (0.13.1)
+      multipart-post (>= 1.2, < 3)
     filesize (0.1.1)
     hamster (3.0.0)
       concurrent-ruby (~> 1.0)
-    http (0.5.1)
-      http_parser.rb
+    http (3.0.0)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (>= 2.0.0.pre.pre2, < 3)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (2.0.0)
     http_parser.rb (0.6.0)
-    json (1.8.3)
-    json-ld (2.1.0)
-      multi_json (~> 1.11)
-      rdf (~> 2.1)
+    json (2.1.0)
+    json-ld (2.1.7)
+      multi_json (~> 1.12)
+      rdf (~> 2.2, >= 2.2.8)
     link_header (0.0.8)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
-    mini_portile2 (2.1.0)
-    multi_json (1.12.1)
-    multipart-post (1.2.0)
-    nokogiri (1.6.8.1)
-      mini_portile2 (~> 2.1.0)
-    rake (11.3.0)
-    rdf (2.1.0)
+    mini_portile2 (2.3.0)
+    multi_json (1.12.2)
+    multipart-post (2.0.0)
+    naught (1.1.0)
+    nokogiri (1.8.1)
+      mini_portile2 (~> 2.3.0)
+    public_suffix (3.0.1)
+    rake (12.3.0)
+    rdf (2.2.12)
       hamster (~> 3.0)
       link_header (~> 0.0, >= 0.0.8)
-    rdf-turtle (2.0.0)
-      ebnf (~> 1.0, >= 1.0.1)
-      rdf (~> 2.0)
+    rdf-turtle (2.2.2)
+      ebnf (~> 1.1)
+      rdf (>= 2.2, < 4.0)
     semverly (1.0.0)
-    simple_oauth (0.2.0)
-    sxp (1.0.0)
-      rdf (~> 2.0)
-    thread_safe (0.3.5)
-    tilt (2.0.5)
-    twitter (5.5.1)
+    simple_oauth (0.3.1)
+    sxp (1.0.1)
+      rdf (>= 2.2, < 4.0)
+    thread_safe (0.3.6)
+    tilt (2.0.8)
+    twitter (6.2.0)
       addressable (~> 2.3)
       buftok (~> 0.2.0)
-      descendants_tracker (~> 0.0.3)
-      equalizer (~> 0.0.9)
-      faraday (>= 0.8, < 0.10)
-      http (~> 0.5.0)
+      equalizer (~> 0.0.11)
+      http (~> 3.0)
+      http-form_data (~> 2.0)
       http_parser.rb (~> 0.6.0)
-      json (~> 1.8)
       memoizable (~> 0.4.0)
-      simple_oauth (~> 0.2.0)
-    webrick (1.3.1)
+      multipart-post (~> 2.0)
+      naught (~> 1.0)
+      simple_oauth (~> 0.3.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
+    webrick (1.4.1)
 
 PLATFORMS
   ruby
@@ -63,7 +75,7 @@ PLATFORMS
 DEPENDENCIES
   addressable
   erubis
-  faraday (~> 0.8.11)
+  faraday
   filesize
   json
   json-ld (~> 2.1.0)
@@ -73,8 +85,8 @@ DEPENDENCIES
   rdf-turtle
   semverly
   tilt
-  twitter
-  webrick
+  twitter (~> 6.2.0)
+  webrick (> 1.4.0)
 
 BUNDLED WITH
-   1.12.5
+   1.16.1
