@@ -118,9 +118,9 @@ task :server => :build do
   server.start
 end
 
-desc "Upload the files in public/ to the live web server"
+desc "Upload the files in public/ to S3"
 task :upload => :build do
-  sh 'rsync -avz --delete --exclude=.DS_Store -e ssh public/ arduinolibs@www.arduinolibraries.info:/srv/www/arduino-libraries/'
+  ruby 'bin/upload-to-s3.rb'
 end
 
 task :default => :build
