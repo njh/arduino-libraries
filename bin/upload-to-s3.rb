@@ -43,12 +43,7 @@ puts "Uploading: #{filelist.keys.count} files"
 
 
 
-client = Aws::S3::Client.new(
-  :access_key_id => ENV['ARDUINOLIBS_AWS_KEY'],
-  :secret_access_key => ENV['ARDUINOLIBS_AWS_SECRET'],
-  :region => 'eu-west-1'
-)
-
+client = Aws::S3::Client.new(:region => 'eu-west-1')
 bucket = Aws::S3::Bucket.new(
   'origin.arduinolibraries.info',
   :client => client
