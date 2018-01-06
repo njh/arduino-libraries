@@ -53,7 +53,7 @@ The gem is available as open source under the terms of the [MIT License].
 
 
 
-[arduinolibraries.info]:     http://arduinolibraries.info/
+[arduinolibraries.info]:     https://arduinolibraries.info/
 [MIT License]:               http://opensource.org/licenses/MIT
 [Ruby]:                      http://ruby-lang.org/
 [Bundler]:                   http://bundler.io/

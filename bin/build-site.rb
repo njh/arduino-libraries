@@ -28,7 +28,7 @@ def render(filename, template, args={})
   dirname = File.dirname(publicpath)
   FileUtils.mkdir_p(dirname) unless Dir.exist?(dirname)
 
-  args[:url] ||= "http://www.arduinolibraries.info/#{filename}".sub!(%r|/index.html$|, '')
+  args[:url] ||= "https://www.arduinolibraries.info/#{filename}".sub!(%r|/index.html$|, '')
   args[:rss_url] ||= nil
   args[:description] ||= nil
   args[:jsonld] ||= nil
@@ -52,7 +52,7 @@ render(
   :index,
   :title => "Arduino Library List",
   :description => "A catalogue of the #{@count} Arduino Libraries",
-  :rss_url => "http://www.arduinolibraries.info/feed.xml",
+  :rss_url => "https://www.arduinolibraries.info/feed.xml",
   :most_recent => library_sort(data[:libraries], :release_date),
   :most_stars => library_sort(data[:libraries], :stargazers_count),
   :most_forked => library_sort(data[:libraries], :forks)

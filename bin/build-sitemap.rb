@@ -25,7 +25,7 @@ File.open('public/sitemap.xml', 'wb') do |file|
       path = '/' if path.empty?
       
       builder.url do
-        builder.loc("http://www.arduinolibraries.info" + path)
+        builder.loc("https://www.arduinolibraries.info" + path)
         if path =~ %r|/libraries/(.+)|
           library = data[:libraries][$1.to_sym]
           if library and library[:versions].first[:release_date]

@@ -35,7 +35,7 @@ libraries.reverse.each do |library|
     puts " => already tweeted"
   else
     remaining = 140 - lines.first.length - short_url_length - 4
-    lines << "http://arduinolibraries.info/libraries/#{library[:key]}"
+    lines << "https://arduinolibraries.info/libraries/#{library[:key]}"
     if remaining < 1
       raise "Tweet is too long"
     elsif remaining > 20
