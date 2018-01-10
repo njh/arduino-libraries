@@ -43,11 +43,8 @@ puts "Uploading: #{filelist.keys.count} files"
 
 
 
-client = Aws::S3::Client.new(:region => 'eu-west-1')
-bucket = Aws::S3::Bucket.new(
-  'origin.arduinolibraries.info',
-  :client => client
-)
+s3 = Aws::S3::Resource.new(:region => 'eu-west-1')
+bucket = s3.bucket('origin.arduinolibraries.info')
 
 raise "Error: S3 bucket does not exist" unless bucket.exists?
 
@@ -61,15 +58,12 @@ filelist.each_pair do |localpath,remotepath|
   mime_type = MIME_TYPE_MAP[suffix]
   raise "No MIME Type defined for '#{suffix}'" if mime_type.nil?
 
-  File.open(localpath, 'rb') do |file|
-    bucket.put_object(
-      :key => remotepath,
-      :acl => 'public-read',
-      :content_type => mime_type,
-      :cache_control => CACHE_CONTROL,
-      :body => file,
-    )
-  end
+  bucket.object(remotepath).upload_file(
+    localpath,
+    :acl => 'public-read',
+    :content_type => mime_type,
+    :cache_control => CACHE_CONTROL
+  )
 end
 
 
