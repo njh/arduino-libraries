@@ -109,14 +109,16 @@ data[:libraries].each_pair do |key, library|
     library[:username] = username.downcase
     library[:reponame] = reponame.downcase
     library[:github] = "https://github.com/#{username}/#{reponame}"
-  elsif newest[:url] =~ %r|http://downloads\.arduino\.cc/libraries/bitbucket\.org/([\w\-]+)/([\w\-]+)-|i
-    username, reponame = $1, $2
-
-    puts "Ignoring BitBucket project: #{library[:name]}"
+  else
     data[:libraries].delete(key)
 
-  else
-    puts "Got download that isn't from github.com"
+    if newest[:url] =~ %r|http://downloads\.arduino\.cc/libraries/bitbucket\.org/|i
+      puts "Ignoring BitBucket project: #{library[:name]}"
+    elsif newest[:url] =~ %r|http://downloads\.arduino\.cc/libraries/gitlab\.com/|i
+      puts "Ignoring GitLab project: #{library[:name]}"
+    else
+      puts "Ignoring project that isn't GitHub: #{library[:name]}"
+    end
   end
 end
 
