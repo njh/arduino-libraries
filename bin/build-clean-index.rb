@@ -89,8 +89,8 @@ data[:libraries].each_pair do |key, library|
     end
   end
 
-  # Work out the Github URL
-  if newest[:url] =~ %r|http://downloads\.arduino\.cc/libraries/github\.com/([\w\-]+)/([\w\-]+)-|i
+  # Work out the Github repository location
+  if library[:repository] =~ %r|https?://github\.com/([\w\-]+)/([\w\-]+)(\.git)?|i
     username, reponame = $1, $2
 
     # Check if an username override is set
@@ -112,9 +112,9 @@ data[:libraries].each_pair do |key, library|
   else
     data[:libraries].delete(key)
 
-    if newest[:url] =~ %r|http://downloads\.arduino\.cc/libraries/bitbucket\.org/|i
+    if library[:repository] =~ %r|https?://bitbucket\.org|i
       puts "Ignoring BitBucket project: #{library[:name]}"
-    elsif newest[:url] =~ %r|http://downloads\.arduino\.cc/libraries/gitlab\.com/|i
+    elsif library[:repository] =~ %r|https?://gitlab\.com/|i
       puts "Ignoring GitLab project: #{library[:name]}"
     else
       puts "Ignoring project that isn't GitHub: #{library[:name]}"
