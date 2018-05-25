@@ -55,6 +55,14 @@ def link_to_category(category)
   link_to(category, :href => "/categories/#{category.keyize}")
 end
 
+def link_to_license(license)
+  if license.nil?
+    "Unknown"
+  else
+    link_to(license, :href => "https://choosealicense.com/licenses/#{license.downcase}/")
+  end
+end
+
 def pretty_list(list)
   if list.nil?
     "<i>Unknown</i>"

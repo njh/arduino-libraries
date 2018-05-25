@@ -12,6 +12,7 @@
   <dt>Github</dt>         <dd><%== link_to(library[:github]) %></dd>
   <% end %>
   <dt>Category</dt>       <dd><%== link_to_category(library[:category]) %></dd>
+  <dt>License</dt>        <dd><%== link_to_license(library[:license]) %></dd>
   <dt>Library Type</dt>   <dd><%== pretty_list(library[:types]) %></dd>
   <dt>Architectures</dt>  <dd><%== pretty_list(library[:architectures]) %></dd>
 </dl>

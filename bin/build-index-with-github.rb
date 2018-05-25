@@ -38,6 +38,9 @@ data[:libraries].each_pair do |key,library|
     COPY_REPO_PROPERTIES.each do |prop|
       library[prop] = github[prop]
     end
+    unless github[:license].nil?
+      library[:license] ||= github[:license][:spdx_id]
+    end
   end
 
   library[:versions].each do |version|
