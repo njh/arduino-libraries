@@ -43,6 +43,10 @@ data[:libraries].each_pair do |key,library|
     jsonld['datePublished'] = Time.parse(newest[:release_date]).strftime('%Y-%m-%d')
   end
 
+  if library[:license]
+    jsonld['license'] = "https://spdx.org/licenses/"+library[:license]
+  end
+
   File.open("public/libraries/#{key}.json", 'wb') do |file|
     file.write JSON.pretty_generate(jsonld)
   end
