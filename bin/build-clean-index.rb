@@ -39,6 +39,13 @@ CSV.foreach('authors_extras.csv', :headers => true) do |row|
   end
 end
 
+valid_licenses = {}
+spdx_licences = JSON.parse(File.read('spdx_licences.json'))
+spdx_licences['licenses'].each do |license|
+  valid_licenses[license['licenseId']] = license['name']
+end
+
+
 data = {
   :libraries => {},
   :types => {},
@@ -120,6 +127,16 @@ data[:libraries].each_pair do |key, library|
     else
       puts "Ignoring project that isn't GitHub: #{library[:name]}"
     end
+  end
+end
+
+# Remove invalid licenses
+data[:libraries].each_pair do |key, library|
+  license = library[:license]
+  next if license.nil?
+  unless valid_licenses.has_key?(library[:license])
+    $stderr.puts "Warning: removing invalid license '#{license}' for #{key}"
+    library.delete(:license)
   end
 end
 

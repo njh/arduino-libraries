@@ -42,7 +42,7 @@ namespace :twitter do
 end
 
 desc "Create the clean index JSON file"
-file 'library_index_clean.json' => ['library_index_raw.json', 'authors_extras.csv', 'repos_extras.csv'] do |task|
+file 'library_index_clean.json' => ['library_index_raw.json', 'authors_extras.csv', 'repos_extras.csv', 'spdx_licences.json'] do |task|
   ruby 'bin/build-clean-index.rb'
 end
 
@@ -77,6 +77,14 @@ file 'schema_org_context.json' do |task|
     task.name,
     'http://schema.org/',
     'application/ld+json'
+  )
+end
+
+desc "Download SPDX license data"
+file 'spdx_licences.json' do |task|
+  download(
+    task.name,
+    'https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json'
   )
 end
 
