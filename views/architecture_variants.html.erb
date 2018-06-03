@@ -1,0 +1,32 @@
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+<% architectures.keys.sort_by(&:downcase).each do |architecture| %>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading-<%= architecture %>">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<%= architecture %>" aria-expanded="true" aria-controls="collapse-<%= architecture %>">
+          <%= architecture %>
+        </a>
+        <small>(<%= architectures[architecture].count %> items)</small>
+      </h4>
+    </div>
+
+    <div id="collapse-<%= architecture %>" class="panel-collapse collapse" role="tabpanel">
+      <div class="panel-body">
+        <table class="table">
+          <% architectures[architecture].sort.each do |key| %>
+            <% library = libraries[key.to_sym] %>
+            <tr>
+              <td><%== link_to(library[:name], :href => "/libraries/#{key}") %></td>
+              <td><%== link_to(library[:github]) %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+</div>

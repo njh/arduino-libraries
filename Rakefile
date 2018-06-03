@@ -93,6 +93,11 @@ task :build_site => ['library_index_with_github.json'] do
   ruby 'bin/build-site.rb'
 end
 
+desc "Create Aritecture Variants file"
+file 'public/architecture-variants.html' => ['library_index_with_github.json'] do
+  ruby 'bin/build-architecture-variants.rb'
+end
+
 desc "Create RSS Feed file"
 file 'public/feed.xml' => ['library_index_with_github.json'] do
   ruby 'bin/build-rss-feed.rb'
@@ -109,7 +114,7 @@ file 'public/sitemap.xml' => ['library_index_with_github.json'] do
 end
 
 desc "Generate all the required files in public"
-task :build => [:build_linkeddata, :build_site, 'public/feed.xml', 'public/search-index.json', 'public/sitemap.xml']
+task :build => [:build_linkeddata, :build_site, 'public/architecture-variants.html', 'public/feed.xml', 'public/search-index.json', 'public/sitemap.xml']
 
 desc "Run a local web server on port 3000"
 task :server => :build do
