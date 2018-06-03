@@ -92,6 +92,19 @@
       </li>
     <% end %>
   </ul>
+
+  <h2>
+    By License
+    <small class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></small>
+  </h2>
+  <ul>
+    <% @licenses.keys.sort.each do |license| %>
+      <li>
+        <%== link_to(license.to_s.gsub('-',' '), :href => "/licenses/#{license.to_s.keyize}") %>
+        (<%= @licenses[license].count %>)
+      </li>
+    <% end %>
+  </ul>
 </div>
 
 <div class="col-md-4">

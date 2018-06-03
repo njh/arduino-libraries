@@ -55,11 +55,12 @@ def link_to_category(category)
   link_to(category, :href => "/categories/#{category.keyize}")
 end
 
-def link_to_license(license)
+def link_to_license(license, title=nil)
   if license.nil?
     "Unknown"
   else
-    link_to(license, :href => "https://choosealicense.com/licenses/#{license.downcase}/")
+    title = license.to_s.gsub('-', ' ') if title.nil?
+    link_to(title, :href => "https://choosealicense.com/licenses/#{license.downcase}/")
   end
 end
 

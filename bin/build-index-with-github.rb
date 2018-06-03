@@ -70,6 +70,16 @@ data[:authors].each_pair do |username,author|
   end
 end
 
+# Create an index of licenses
+data[:licenses] = {}
+data[:libraries].each_pair do |key, library|
+  next unless library[:license] =~ /^[\w\-]+$/
+  license = library[:license]
+  data[:licenses][license] ||= []
+  data[:licenses][license] << key
+end
+
+
 # Finally, write to back to disk
 File.open('library_index_with_github.json', 'wb') do |file|
   file.write JSON.pretty_generate(data)

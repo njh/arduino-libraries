@@ -44,7 +44,8 @@ data = {
   :types => {},
   :categories => {},
   :architectures => {},
-  :authors => {}
+  :authors => {},
+  :licenses => {},
 }
 
 # First collate the versions

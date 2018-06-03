@@ -45,6 +45,7 @@ end
 @types = data[:types]
 @categories = data[:categories]
 @architectures = data[:architectures]
+@licenses = data[:licenses]
 @authors = data[:authors]
 
 render(
@@ -99,6 +100,18 @@ data[:architectures].each_pair do |architecture,libraries|
     :title => architecture.capitalize,
     :synopsis => "A list of the <i>#{libraries.count}</i> "+
                  "libraries in the architecture #{architecture}.",
+    :keys => libraries.map {|key| key.to_sym},
+    :libraries => data[:libraries]
+  )
+end
+
+data[:licenses].each_pair do |license,libraries|
+  render(
+    "licenses/#{license.to_s.keyize}/index.html",
+    :list,
+    :title => license.to_s.gsub('-',' '),
+    :synopsis => "A list of the <i>#{libraries.count}</i> "+
+                 "libraries that are licensed with the #{link_to_license(license)} license.",
     :keys => libraries.map {|key| key.to_sym},
     :libraries => data[:libraries]
   )
