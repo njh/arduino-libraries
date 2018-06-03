@@ -55,6 +55,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
+          <% unless @categories.nil? %>
           <li class="dropdown">
             <a href="/categories" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -63,6 +64,8 @@
               <% end %>
             </ul>
           </li>
+          <% end %>
+          <% unless @types.nil? %>
           <li class="dropdown">
             <a href="/types" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Types <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -71,6 +74,8 @@
               <% end %>
             </ul>
           </li>
+          <% end %>
+          <% unless @architectures.nil? %>
           <li class="dropdown">
             <a href="/architectures" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Architectures <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -79,6 +84,7 @@
               <% end %>
             </ul>
           </li>
+          <% end %>
           <li><a href="/authors">Authors</a></li>
         </ul>
 
