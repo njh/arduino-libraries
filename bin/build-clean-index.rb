@@ -63,7 +63,6 @@ source_data[:libraries].each do |entry|
 
   entry[:key] = key
   entry[:types].map! {|t| t == 'Arduino' ? 'Official' : t }
-  entry[:architectures].map! {|arch| arch.downcase }
   entry[:semver] = SemVer.parse(entry[:version])
   entry[:sentence] = strip_html(entry[:sentence])
   entry[:website] = fix_url(entry[:website])
@@ -158,10 +157,13 @@ end
 data[:libraries].each_pair do |key, library|
   next if library[:architectures].nil?
   library[:architectures].each do |architecture|
-    architecture = 'Any' if architecture == '*'
-    next unless architecture =~ /^\w+$/
-    data[:architectures][architecture] ||= []
-    data[:architectures][architecture] << key
+    if architecture == '*'
+      architecture = 'Any'
+    elsif architecture =~ /^\w+$/
+      architecture = architecture.downcase
+      data[:architectures][architecture] ||= []
+      data[:architectures][architecture] << key
+    end
   end
 end
 
