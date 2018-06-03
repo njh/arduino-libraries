@@ -1,33 +1,31 @@
 #!/usr/bin/env ruby
 
+
+def download(filename, url, accept=nil)
+  args = [
+    '--fail',
+    '--silent',
+    '--show-error',
+    '--output', filename,
+  ]
+  args += ['--header', "Accept: #{accept}"] unless accept.nil?
+  args << url
+  sh 'curl', *args
+end
+
 desc "Download the Library Index JSON file from arduino.cc"
 file 'library_index_raw.json' do |task|
-  sh 'curl',
-     '--fail',
-     '--silent',
-     '--show-error',
-     '--output', task.name,
-     'https://downloads.arduino.cc/libraries/library_index.json'
+  download(task.name, 'https://downloads.arduino.cc/libraries/library_index.json')
 end
 
 desc "Download extra information about authors"
 file 'authors_extras.csv' do |task|
-  sh 'curl',
-     '--fail',
-     '--silent',
-     '--show-error',
-     '--output', task.name,
-     'https://docs.google.com/spreadsheets/d/1ARqkeEmVVApylSDVZ6s_97-YtvlklE8k05F2EOlO0MY/pub?gid=465469161&single=true&output=csv'
+  download(task.name, 'https://docs.google.com/spreadsheets/d/1ARqkeEmVVApylSDVZ6s_97-YtvlklE8k05F2EOlO0MY/pub?gid=465469161&single=true&output=csv')
 end
 
 desc "Download extra information about repositories"
 file 'repos_extras.csv' do |task|
-  sh 'curl',
-     '--fail',
-     '--silent',
-     '--show-error',
-     '--output', task.name,
-     'https://docs.google.com/spreadsheets/d/1ARqkeEmVVApylSDVZ6s_97-YtvlklE8k05F2EOlO0MY/pub?gid=278607893&single=true&output=csv'
+  download(task.name, 'https://docs.google.com/spreadsheets/d/1ARqkeEmVVApylSDVZ6s_97-YtvlklE8k05F2EOlO0MY/pub?gid=278607893&single=true&output=csv')
 end
 
 namespace :twitter do
@@ -74,14 +72,11 @@ end
 
 desc "Download JSON context file from schema.org"
 file 'schema_org_context.json' do |task|
-  sh 'curl',
-     '--fail',
-     '--silent',
-     '--show-error',
-     '--location',
-     '--output', task.name,
-     '--header', 'Accept: application/ld+json',
-     'http://schema.org/'
+  download(
+    task.name,
+    'http://schema.org/',
+    'application/ld+json'
+  )
 end
 
 desc "Create HTML files"
