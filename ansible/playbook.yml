@@ -1,0 +1,77 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+  - name: Install Debian Packages
+    apt:
+      name:
+        - nginx
+      state: present
+
+  - name: "Ensure group arduino-libs exists"
+    group:
+      name: arduino-libs
+      state: present
+
+  - name: "Ensure user arduino-libs exists"
+    user:
+      name: arduino-libs
+      comment: 'Arduino Libraries'
+      group: arduino-libs
+      shell: /bin/bash
+      createhome: yes
+      home: /home/arduino-libraries
+      system: yes
+
+  - name: 'Set permissions for .ssh'
+    file:
+      path: /home/arduino-libraries/.ssh
+      state: directory
+      owner: arduino-libs
+      group: arduino-libs
+      mode: 0755
+
+  - name: 'Copy accross SSH authorized keys file'
+    copy:
+      src: authorized_keys
+      dest: /home/arduino-libraries/.ssh/authorized_keys
+      owner: arduino-libs
+      group: arduino-libs
+      mode: 0644
+
+  - name: 'Create /srv/www/empty'
+    file:
+      path: /srv/www/empty
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+
+  - name: 'Create /srv/www/arduino-libraries'
+    file:
+      path: /srv/www/arduino-libraries
+      state: directory
+      owner: arduino-libs
+      group: arduino-libs
+      mode: 0755
+
+  - name: 'Copy accross Nginx configuration file'
+    copy:
+      src: nginx.conf
+      dest: /etc/nginx/sites-available/arduino-libraries
+    notify:
+    - 'Restart Nginx'
+
+  - name: 'Enable Nginx configuration file'
+    file:
+      src: /etc/nginx/sites-available/arduino-libraries
+      dest: /etc/nginx/sites-enabled/arduino-libraries
+      state: link
+    notify:
+    - 'Restart Nginx'
+
+  handlers:
+  - name: 'Restart Nginx'
+    become: true
+    service: name=nginx state=restarted

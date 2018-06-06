@@ -24,3 +24,5 @@ public/licenses
 public/sitemap.xml
 public/search-index.json
 public/types
+
+ansible/*.retry

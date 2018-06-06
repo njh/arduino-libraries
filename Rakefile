@@ -129,7 +129,7 @@ end
 
 desc "Upload the files in public/ to S3"
 task :upload => :build do
-  ruby 'bin/upload-to-s3.rb'
+  sh 'rsync -avz --delete -e "ssh -p 5104" public/ arduino-libs@ssh.skypi.hostedpi.com:/srv/www/arduino-libraries/'
 end
 
 task :default => :build
