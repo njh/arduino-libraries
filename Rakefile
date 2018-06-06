@@ -127,9 +127,9 @@ task :server => :build do
   server.start
 end
 
-desc "Upload the files in public/ to S3"
+desc "Upload the files in public/ to the origin server"
 task :upload => :build do
-  sh 'rsync -avz --delete -e "ssh -p 5104" public/ arduino-libs@ssh.skypi.hostedpi.com:/srv/www/arduino-libraries/'
+  sh 'rsync -avz --delete --exclude ".DS_Store" -e "ssh -p 5104" public/ arduino-libs@ssh.skypi.hostedpi.com:/srv/www/arduino-libraries/'
 end
 
 task :default => :build
