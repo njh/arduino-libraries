@@ -28,7 +28,7 @@ def http_get_recursive(uri, count = 0)
   elsif response.code =~ /^2/
     response
   else
-    raise response
+    raise response.inspect
   end
 end
 
