@@ -30,5 +30,8 @@ render(
   :architecture_variants,
   :title => "List of library architecture variants",
   :architectures => architectures,
+  :sorted_architectures => architectures.keys.sort { |a,b|
+    architectures[b].count <=> architectures[a].count
+  },
   :libraries => data[:libraries]
 )

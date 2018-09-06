@@ -1,7 +1,7 @@
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-<% architectures.keys.sort_by(&:downcase).each do |architecture| %>
+<% sorted_architectures.each do |architecture| %>
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="heading-<%= architecture %>">
       <h4 class="panel-title">
