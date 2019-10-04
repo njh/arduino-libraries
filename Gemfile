@@ -8,7 +8,7 @@ gem 'semverly'
 gem 'erubis'
 gem 'tilt'
 gem 'filesize'
-gem 'nokogiri'
+gem 'nokogiri', '~> 1.10.4'
 
 gem 'twitter', '~> 6.2.0'
 gem 'faraday'
@@ -16,5 +16,5 @@ gem 'faraday'
 group :linkeddata do
   gem 'rdf'
   gem 'rdf-turtle'
-  gem 'json-ld', '~> 2.1.0'
+  gem 'json-ld', '~> 3.0.2'
 end
