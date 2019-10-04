@@ -13,8 +13,6 @@ gem 'nokogiri'
 gem 'twitter', '~> 6.2.0'
 gem 'faraday'
 
-gem 'aws-sdk-s3', '~> 1.8.0'
-
 group :linkeddata do
   gem 'rdf'
   gem 'rdf-turtle'
