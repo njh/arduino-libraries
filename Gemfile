@@ -8,7 +8,7 @@ gem 'semverly'
 gem 'erubis'
 gem 'tilt'
 gem 'filesize'
-gem 'nokogiri', '~> 1.10.4'
+gem 'nokogiri', '~> 1.10.8'
 
 gem 'twitter', '~> 6.2.0'
 gem 'faraday'
