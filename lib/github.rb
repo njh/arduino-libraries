@@ -11,8 +11,8 @@ def http_get_recursive(uri, count = 0)
   end
 
   request = Net::HTTP::Get.new(uri.request_uri)
-  request['ACCEPT'] = 'application/json'
-  request['USER_AGENT'] = 'arduniolibraries.info fetcher '
+  request['Accept'] = 'application/json'
+  request['User-Agent'] = 'arduniolibraries.info fetcher'
   if ENV['GITHUB_API_TOKEN']
     request['Authorization'] = 'token ' + ENV['GITHUB_API_TOKEN']
   else
