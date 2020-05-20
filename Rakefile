@@ -73,11 +73,7 @@ end
 
 desc "Download JSON context file from schema.org"
 file 'schema_org_context.json' do |task|
-  download(
-    task.name,
-    'http://schema.org/',
-    'application/ld+json'
-  )
+  download(task.name, 'https://schema.org/docs/jsonldcontext.json')
 end
 
 desc "Download SPDX license data"
