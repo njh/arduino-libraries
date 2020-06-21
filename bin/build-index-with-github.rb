@@ -67,6 +67,15 @@ data[:authors].each_pair do |username,author|
     author[:homepage] = fix_url(github[:blog]) unless github[:blog].nil?
     author[:location] = github[:location]
     author[:company] = github[:company]
+    if github[:twitter_username]
+      if author[:twitter] and author[:twitter] != github[:twitter_username]
+        $stderr.puts "Warning: differing twitter accounts"
+        $stderr.puts "   Author extras: #{author[:twitter]}"
+        $stderr.puts "   Github: #{github[:twitter_username]}"
+      else
+        author[:twitter] = github[:twitter_username]
+      end
+    end
   end
 end
 
