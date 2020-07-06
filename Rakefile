@@ -5,6 +5,7 @@ def download(filename, url, accept=nil)
   args = [
     '--fail',
     '--silent',
+    '--compressed',
     '--location',
     '--show-error',
     '--output', filename,
