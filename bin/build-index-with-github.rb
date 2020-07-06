@@ -82,7 +82,7 @@ end
 # Create an index of licenses
 data[:licenses] = {}
 data[:libraries].each_pair do |key, library|
-  next unless library[:license] =~ /^[\w\-]+$/
+  next unless library[:license] =~ /^[\w\-\.]+$/
   license = library[:license]
   data[:licenses][license] ||= []
   data[:licenses][license] << key
