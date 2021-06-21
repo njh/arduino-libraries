@@ -18,7 +18,9 @@ first_lines = $twitter.user_timeline(
 ).map {|tweet| tweet.text.split("\n").first}
 
 # Get the amount of space a HTTP URL takes up
-short_url_length = $twitter.configuration.short_url_length
+# This API endpoint has appeared to have 410 Gone
+#short_url_length = $twitter.configuration.short_url_length_https
+short_url_length = 24
 
 libraries = library_sort(data[:libraries], :release_date, 25)
 libraries.reverse.each do |library|
