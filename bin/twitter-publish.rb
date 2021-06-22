@@ -5,6 +5,10 @@ Bundler.require(:default)
 require './lib/helpers'
 require './lib/twitter_config'
 
+# Length of a Twitter short URL
+TWEET_MAX_LENGTH = 280
+SHORT_URL_LENGTH = 23
+
 
 # Load the library data
 data = JSON.parse(
@@ -17,10 +21,6 @@ first_lines = $twitter.user_timeline(
   'arduinolibs', :count => 50, :include_rts => false, :exclude_replies => true
 ).map {|tweet| tweet.text.split("\n").first}
 
-# Get the amount of space a HTTP URL takes up
-# This API endpoint has appeared to have 410 Gone
-#short_url_length = $twitter.configuration.short_url_length_https
-short_url_length = 24
 
 libraries = library_sort(data[:libraries], :release_date, 25)
 libraries.reverse.each do |library|
@@ -36,7 +36,7 @@ libraries.reverse.each do |library|
   if first_lines.include?(lines.first)
     puts " => already tweeted"
   else
-    remaining = 140 - lines.first.length - short_url_length - 4
+    remaining = TWEET_MAX_LENGTH - lines.first.length - SHORT_URL_LENGTH - 4
     lines << "https://arduinolibraries.info/libraries/#{library[:key]}"
     if remaining < 1
       raise "Tweet is too long"
