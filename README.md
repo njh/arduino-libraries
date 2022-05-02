@@ -55,6 +55,6 @@ The gem is available as open source under the terms of the [MIT License].
 
 [arduinolibraries.info]:     https://arduinolibraries.info/
 [MIT License]:               http://opensource.org/licenses/MIT
-[Ruby]:                      http://ruby-lang.org/
+[Ruby]:                      http://www.ruby-lang.org/
 [Bundler]:                   http://bundler.io/
 [http://localhost:3000/]:    http://localhost:3000/
