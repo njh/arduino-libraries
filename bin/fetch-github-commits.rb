@@ -12,13 +12,17 @@ data = JSON.parse(
   {:symbolize_names => true}
 )
 
-if File.exist?('github_commits.json')
-  Commits = JSON.parse(
-    File.read('github_commits.json'),
-    {:symbolize_names => true}
-  )
-else
-  Commits = {}
+Commits = {}
+if File.exist?('github_commits.json') and !File.zero?('github_commits.json')
+  begin
+    Commits = JSON.parse(
+      File.read('github_commits.json'),
+      {:symbolize_names => true}
+    )
+  rescue JSON::ParserError => exp
+    puts "Failed to parse existing commits file: #{exp}"
+    Commits = {}
+  end
 end
 
 $tags = {}
