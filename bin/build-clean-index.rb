@@ -5,6 +5,9 @@ Bundler.require(:default)
 require './lib/helpers'
 require 'csv'
 
+# Limit the number of versions for each library to 10
+# this is to reduce the number of queries to GitHub
+VersionLimit = 10
 
 VersionSecificKeys = [
   :version, :url, :archiveFileName, :size, :checksum
@@ -75,7 +78,8 @@ end
 data[:libraries].each_pair do |key, library|
   library[:versions] = library[:versions].
     sort_by {|item| item[:semver]}.
-    reverse
+    reverse.
+    first(VersionLimit)
 end
 
 # Then take the metadata for each library from the newest version
