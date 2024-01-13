@@ -38,3 +38,7 @@
   -webkit-box-shadow: none;
   border-color: rgb(220, 228, 236)
 }
+
+.nowrap {
+  white-space: nowrap;
+}

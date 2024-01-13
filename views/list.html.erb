@@ -1,11 +1,56 @@
 <p><%== synopsis %></p>
 
-<table class="table">
-  <% keys.sort.each do |key| %>
-    <% library = libraries[key] %>
+<table class="table datatable" data-page-length="25">
+  <thead>
     <tr>
-      <td><%== link_to(library[:name], :href => "/libraries/#{key}") %></td>
-      <td><%= library[:sentence] %></td>
+        <th>Name</th>
+        <th>Description</th>
+        <th data-type="num">Stars</th>
+        <th data-type="date">Updated&nbsp;at</th>
+        <th data-type="date">Created&nbsp;at</th>
+        <th data-orderable="false" data-searchable="false"></th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% keys.sort.each do |key| %>
+      <% library = libraries[key] %>
+      <tr>
+        <td><%== link_to(library[:name], :href => "/libraries/#{key}") %></td>
+        <td><%= library[:sentence] %></td>
+        <td>
+          <% if library[:stargazers_count] %>
+            <%== library[:stargazers_count] %>
+          <% else %>
+          <% end %>
+        </td>
+        <td class="nowrap">
+          <% if library[:release_date] %>
+            <%== Time.parse(library[:release_date]).strftime('%Y-%m-%d') %>
+          <% else %>
+          <% end %>
+        </td>
+        <td class="nowrap">
+          <% if library[:created_at] %>
+            <%== Time.parse(library[:created_at]).strftime('%Y-%m-%d') %>
+          <% else %>
+          <% end %>
+        </td>
+        <td class="nowrap">
+          <% if library[:repository] %>
+            <%== link_to('<i class="fa-brands fa-github"></i>', :href => library[:repository]) %>
+          <% else %>
+          <% end %>
+          <% if library[:website] %>
+            <%== link_to('<span class="glyphicon glyphicon-home"/>', :href => library[:website]) %>
+          <% else %>
+          <% end %>
+          <% if library[:versions] and library[:versions][0] %>
+            <%== link_to('<i class="glyphicon glyphicon-cloud-download"></i>', :href => library[:versions][0][:url]) %>
+          <% else %>
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
 </table>

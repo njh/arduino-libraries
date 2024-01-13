@@ -7,7 +7,8 @@ require './lib/helpers'
 COPY_REPO_PROPERTIES = [
   :stargazers_count,
   :watchers_count,
-  :forks
+  :forks,
+  :created_at
 ]
 
 # Load the library data

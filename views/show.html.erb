@@ -15,6 +15,17 @@
   <dt>License</dt>        <dd><%== link_to_license(library[:license]) %></dd>
   <dt>Library Type</dt>   <dd><%== pretty_list(library[:types]) %></dd>
   <dt>Architectures</dt>  <dd><%== pretty_list(library[:architectures]) %></dd>
+  <% if library[:github] %>
+  <dt></dt>         <dd>
+    <%== gh_badge(library[:github], 'stars') %>
+    <%== gh_badge(library[:github], 'watchers') %>
+    <%== gh_badge(library[:github], 'release') %>
+    <%== gh_badge(library[:github], 'last-commit') %>
+    <%== gh_badge(library[:github], 'open-issues') %>
+    <%== gh_badge(library[:github], 'assets-dl') %>
+    <%== gh_badge(library[:github], 'label-issues', 'good-first-issue/open') %>
+  </dd>
+  <% end %>
 </dl>
 
 <p class="paragraph"><%= library[:paragraph] %></p>
