@@ -93,3 +93,8 @@ end
 def remove_links(text)
   text.gsub(%r|(\w+)://|, '').gsub(/(\w+)\.(\w+)/, '\\1․\\2')
 end
+
+def gh_badge(repo, type, extra='')
+  key = repo.gsub(/.*github.com\/([^\/]+\/[^\/]+).*/,'\\1')
+  "<img src='https://flat.badgen.net/github/#{type}/#{key}/#{extra}' />"
+end
