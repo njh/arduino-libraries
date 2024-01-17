@@ -165,9 +165,9 @@ data[:libraries].each_pair do |key, library|
       architecture = 'Any'
     elsif architecture =~ /^\w+$/
       architecture = architecture.downcase
-      data[:architectures][architecture] ||= []
-      data[:architectures][architecture] << key
     end
+    data[:architectures][architecture] ||= []
+    data[:architectures][architecture] << key
   end
 end
 
