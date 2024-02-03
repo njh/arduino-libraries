@@ -67,14 +67,21 @@ def find_tag(username, reponame, version)
     end
     $tags[key] = body.map {|tag| tag[:name]}
   end
+  tag_by_majorminor = nil
+  tag_by_anymatch = nil
+
   $tags[key].each do |tag|
     majorminor = version.sub(/\.0$/, '')
     if tag =~ /^v?_?#{version}$/i
-      return tag
+      tag_by_majorminor = tag
     elsif tag =~ /^v?_?#{majorminor}$/i
       return tag
+    elsif tag =~ /#{version}/i
+      tag_by_anymatch = tag
     end
   end
+  return tag_by_majorminor unless tag_by_majorminor.nil?
+  return tag_by_anymatch unless tag_by_anymatch.nil?
 
   return nil
 end

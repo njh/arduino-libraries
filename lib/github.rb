@@ -32,7 +32,7 @@ def http_get_recursive(uri, count = 0, headers: nil)
     raise "Redirected too many times" if count > 5
     http_get_recursive(location, count + 1, headers: headers)
   elsif (response.code == '403' or response.code == '429') and response['x-ratelimit-remaining'].to_i == 0
-    wait_till = response['x-ratelimit-reset'].to_i
+    wait_till = response['x-ratelimit-reset'].to_i + 1 # 1 more than github asks second
     now = Time.now.to_i
     warn "Rate limit exceeded. Waiting till #{Time.at wait_till} (#{wait_till - now}s)."
     sleep(wait_till - now)
@@ -71,7 +71,7 @@ end
 def github_headers(row)
   return {} if row.nil?
   headers = {}
-  headers['if-none-match'] = row[:etag].sub!('W/', '') if row[:etag]
+  headers['if-none-match'] = row[:etag].sub('W/', '') if row[:etag]
   headers['if-modified-since'] = row[:last_modified] if row[:last_modified]
   headers
 end

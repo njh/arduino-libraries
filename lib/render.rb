@@ -18,7 +18,7 @@ def render(filename, template, args={})
   dirname = File.dirname(publicpath)
   FileUtils.mkdir_p(dirname) unless Dir.exist?(dirname)
 
-  args[:url] ||= "https://www.arduinolibraries.info/#{filename}".sub!(%r|/index.html$|, '')
+  args[:url] ||= "https://www.arduinolibraries.info/#{filename}".sub(%r|/index.html$|, '')
   args[:rss_url] ||= nil
   args[:description] ||= nil
   args[:jsonld] ||= nil

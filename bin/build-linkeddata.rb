@@ -17,12 +17,7 @@ JSON::LD::Context.add_preloaded(
 FileUtils.mkdir_p("public/libraries")
 
 data[:libraries].each_pair do |key,library|
-  begin
-    newest = library[:versions].first
-  rescue Exception => e
-    warn library
-    raise e
-  end
+  newest = library[:versions].first
 
   jsonld = {
       '@context' => 'http://schema.org/',
@@ -48,12 +43,8 @@ data[:libraries].each_pair do |key,library|
   if library[:license]
     jsonld['license'] = "https://spdx.org/licenses/"+library[:license]
   end
-  begin
   File.open("public/libraries/#{key}.json", 'wb') do |file|
     file.write JSON.pretty_generate(jsonld)
-  end
-  rescue Exception => e
-    warn "#{key} error: #{e}"
   end
 
   RDF::Turtle::Writer.open("public/libraries/#{key}.ttl") do |writer|

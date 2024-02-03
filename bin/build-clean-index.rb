@@ -98,7 +98,7 @@ data[:libraries].each_pair do |key, library|
   end
 
   # Work out the Github repository location
-  if library[:repository] =~ %r|https?://github\.com/([\w\-]+)/([\w\-]+)(\.git)?|i
+  if library[:repository] =~ %r{https?://github\.com/([^/]+)/(.+?)(\.git|[\?\#/]|$)}i
     username, reponame = $1, $2
   elsif library[:url] =~ %r|https?://downloads\.arduino\.cc/libraries/github\.com/([^/]+)/(.+)-[^-]+\.zip|i
     # TODO: this never runs.
