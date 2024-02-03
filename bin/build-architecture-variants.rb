@@ -6,10 +6,7 @@ require './lib/render'
 Bundler.require(:default)
 
 # Load the library data
-data = JSON.parse(
-  File.read('library_index_with_github.json'),
-  {:symbolize_names => true}
-)
+data = load_csv_data
 
 
 architectures = {}

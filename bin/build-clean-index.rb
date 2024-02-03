@@ -51,11 +51,7 @@ end
 
 data = {
   :libraries => {},
-  :types => {},
-  :categories => {},
-  :architectures => {},
   :authors => {},
-  :licenses => {},
 }
 
 # First collate the versions
@@ -69,6 +65,7 @@ source_data[:libraries].each do |entry|
   entry[:semver] = SemVer.parse(entry[:version])
   entry[:sentence] = strip_html(entry[:sentence])
   entry[:website] = fix_url(entry[:website])
+  entry[:repository] = fix_url(entry[:repository])
   data[:libraries][key] ||= {}
   data[:libraries][key][:versions] ||= []
   data[:libraries][key][:versions] << entry
@@ -103,6 +100,10 @@ data[:libraries].each_pair do |key, library|
   # Work out the Github repository location
   if library[:repository] =~ %r|https?://github\.com/([\w\-]+)/([\w\-]+)(\.git)?|i
     username, reponame = $1, $2
+  elsif library[:url] =~ %r|https?://downloads\.arduino\.cc/libraries/github\.com/([^/]+)/(.+)-[^-]+\.zip|i
+    # TODO: this never runs.
+    warn "Warning: guessing github repository for library #{library[:name]}"
+    username, reponame = $1, $2
 
     # Check if an username override is set
     if username_overrides.has_key?(key)
@@ -116,21 +117,23 @@ data[:libraries].each_pair do |key, library|
       # If a website is given try using that if preference to download name
       reponame = $1
     end
-
-    library[:username] = username.downcase
-    library[:reponame] = reponame.downcase
-    library[:github] = "https://github.com/#{username}/#{reponame}"
   else
     data[:libraries].delete(key)
 
     if library[:repository] =~ %r|https?://bitbucket\.org|i
-      puts "Ignoring BitBucket project: #{library[:name]}"
+      warn "Warning: Ignoring BitBucket project: #{library[:name]}"
     elsif library[:repository] =~ %r|https?://gitlab\.com/|i
-      puts "Ignoring GitLab project: #{library[:name]}"
+      warn "Warning: Ignoring GitLab project: #{library[:name]}"
     else
-      puts "Ignoring project that isn't GitHub: #{library[:name]}"
+      warn "Warning: Ignoring project that isn't GitHub: #{library[:name]}"
     end
+
+    next
   end
+
+  library[:username] = username
+  library[:reponame] = reponame
+  library[:github] = "https://github.com/#{username}/#{reponame}"
 end
 
 # Remove invalid licenses
@@ -140,34 +143,6 @@ data[:libraries].each_pair do |key, library|
   unless valid_licenses.has_key?(library[:license])
     $stderr.puts "Warning: removing invalid license '#{license}' for #{key}"
     library.delete(:license)
-  end
-end
-
-# Create an index of types
-data[:libraries].each_pair do |key, library|
-  library[:types].each do |type|
-    data[:types][type] ||= []
-    data[:types][type] << key
-  end
-end
-
-# Create an index of categories
-data[:libraries].each_pair do |key, library|
-  data[:categories][library[:category]] ||= []
-  data[:categories][library[:category]] << key
-end
-
-# Create an index of architectures
-data[:libraries].each_pair do |key, library|
-  next if library[:architectures].nil?
-  library[:architectures].each do |architecture|
-    if architecture == '*'
-      architecture = 'Any'
-    elsif architecture =~ /^\w+$/
-      architecture = architecture.downcase
-      data[:architectures][architecture] ||= []
-      data[:architectures][architecture] << key
-    end
   end
 end
 

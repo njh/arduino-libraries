@@ -11,10 +11,7 @@ SHORT_URL_LENGTH = 23
 
 
 # Load the library data
-data = JSON.parse(
-  File.read('library_index_with_github.json'),
-  {:symbolize_names => true}
-)
+data = load_csv_data
 
 # Get our recent tweets
 first_lines = $twitter.user_timeline(

@@ -4,14 +4,19 @@ repos_extras.csv
 
 library_index_raw.json
 library_index_clean.json
-library_index_with_github.json
+
+repos_index.csv
+repos_index.csv.bkp
+repos_index.csv.tmp
+users_index.csv
+users_index.csv.bkp
+users_index.csv.tmp
+versions_index.csv
+versions_index.csv.bkp
+versions_index.csv.tmp
 
 schema_org_context.json
 spdx_licences.json
-
-github_commits.json
-github_repos.json
-github_users.json
 
 public/architectures
 public/architecture-variants.html

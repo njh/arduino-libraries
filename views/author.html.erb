@@ -1,19 +1,37 @@
-<dl class="dl-horizontal">
-  <% if author[:name] %>
-  <dt>Name</dt>         <dd><%= author[:name] %></dd>
+<div class="row">
+  <% if author[:avatar_url] %>
+    <img class="col-md-2 thumbnail" src="<%=author[:avatar_url]%>%" />
+  <% else %>
+    <span class="glyphicon glyphicon-user" />
   <% end %>
-  <% if author[:location] %>
-  <dt>Location</dt>     <dd><%= author[:location] %></dd>
-  <% end %>
-  <% if author[:homepage] and author[:github] != author[:homepage] %>
-  <dt>Homepage</dt>     <dd><%== link_to(author[:homepage]) %></dd>
-  <% end %>
-  <dt>GitHub</dt>       <dd><%== link_to(author[:github]) %></dd>
-  <% if author[:twitter] %>
-  <dt>Twitter</dt>      <dd><%== link_to("@#{author[:twitter]}", :href => "https://twitter.com/#{author[:twitter]}") %></dd>
-  <% end %>
-</dl>
-
+  <dl class="dl-horizontal col-md-10">
+    <% if author[:name] %>
+    <dt>Name</dt>         <dd><%= author[:name] %></dd>
+    <% end %>
+    <% if author[:location] %>
+    <dt>Location</dt>     <dd><%= author[:location] %></dd>
+    <% end %>
+    <% if author[:bio] %>
+    <dt>Bio</dt>     <dd><%= author[:bio] %></dd>
+    <% end %>
+    <% if author[:type] %>
+    <dt>Type</dt>     <dd><%= author[:type] %></dd>
+    <% end %>
+    <% if author[:email] %>
+    <dt>Email</dt>     <dd><%= author[:email] %></dd>
+    <% end %>
+    <% if author[:company] %>
+    <dt>Company</dt>     <dd><%= author[:company] %></dd>
+    <% end %>
+    <% if author[:homepage] and author[:github] != author[:homepage] %>
+    <dt>Homepage</dt>     <dd><%== link_to(author[:homepage]) %></dd>
+    <% end %>
+    <dt>GitHub</dt>       <dd><%== link_to(author[:github]) %></dd>
+    <% if author[:twitter] %>
+    <dt>Twitter</dt>      <dd><%== link_to("@#{author[:twitter]}", :href => "https://twitter.com/#{author[:twitter]}") %></dd>
+    <% end %>
+  </dl>
+</div>
 
 <h2>Libraries</h2>
 <table class="table">
