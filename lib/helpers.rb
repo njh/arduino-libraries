@@ -146,7 +146,7 @@ def load_csv_data(force_load=false)
     data[:authors][row[:key].to_sym] = row.to_hash
   end
 
-  CSV.foreach('repos_index.csv.tmp', **csv_options) do |row|
+  CSV.foreach('repos_index.csv', **csv_options) do |row|
     lib_key = row[:name].keyize.to_sym
     data[:libraries][lib_key] = row.to_hash
     
