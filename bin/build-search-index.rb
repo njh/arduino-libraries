@@ -1,13 +1,11 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
+require './lib/helpers'
 Bundler.require(:default)
 
 # Load the library data
-data = JSON.parse(
-  File.read('library_index_with_github.json'),
-  {:symbolize_names => true}
-)
+data = load_csv_data
 
 # Extract the fields we want in the search index
 index = data[:libraries].values.map do |library|

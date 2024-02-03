@@ -37,7 +37,7 @@ namespace :twitter do
   end
 
   desc "Publish tweets about latest releases"
-  task :publish => ['library_index_with_github.json'] do
+  task :publish => ['repos_index.csv', 'users_index.csv', 'versions_index.csv'] do
     ruby 'bin/twitter-publish.rb'
   end
 end
@@ -47,28 +47,8 @@ file 'library_index_clean.json' => ['library_index_raw.json', 'authors_extras.cs
   ruby 'bin/build-clean-index.rb'
 end
 
-desc "Download information about repos from Github"
-file 'github_repos.json' => 'library_index_clean.json' do |task|
-  ruby 'bin/fetch-github-repos.rb'
-end
-
-desc "Download information about version tags from Github"
-file 'github_commits.json' => 'library_index_clean.json' do |task|
-  ruby 'bin/fetch-github-commits.rb'
-end
-
-desc "Download information about users from Github"
-file 'github_users.json' => 'library_index_clean.json' do |task|
-  ruby 'bin/fetch-github-users.rb'
-end
-
-desc "Create the index JSON file with added Github info"
-file 'library_index_with_github.json' => ['library_index_clean.json', 'github_repos.json', 'github_commits.json', 'github_users.json'] do |task|
-  ruby 'bin/build-index-with-github.rb'
-end
-
 desc "Create Linked Data files"
-task :build_linkeddata => ['schema_org_context.json', 'library_index_with_github.json'] do
+task :build_linkeddata => ['schema_org_context.json', 'repos_index.csv', 'users_index.csv', 'versions_index.csv'] do
   ruby 'bin/build-linkeddata.rb'
 end
 
@@ -85,33 +65,75 @@ file 'spdx_licences.json' do |task|
   )
 end
 
+desc "Download git repos csv"
+file 'repos_index.csv' => 'library_index_clean.json' do
+  ruby 'bin/build-repos-index.rb'
+end
+
+desc "Download information about version tags from Github"
+file "versions_index.csv" => 'library_index_clean.json' do |task|
+  ruby 'bin/build-versions-index.rb'
+end
+
+task :download_repos_csv => ['library_index_clean.json'] do |task|
+  ruby 'bin/build-repos-index.rb'
+end
+
+task :download_versions_csv => ['library_index_clean.json'] do |task|
+  ruby 'bin/build-versions-index.rb'
+end
+
+task :download_users_csv => ['library_index_clean.json'] do |task|
+  ruby 'bin/build-users-index.rb'
+end
+
 desc "Create HTML files"
-task :build_site => ['library_index_with_github.json'] do
+task :build_site => ['repos_index.csv', 'users_index.csv', 'versions_index.csv'] do
   ruby 'bin/build-site.rb'
 end
 
 desc "Create Aritecture Variants file"
-file 'public/architecture-variants.html' => ['library_index_with_github.json'] do
+file 'public/architecture-variants.html' => ['repos_index.csv', 'users_index.csv', 'versions_index.csv'] do
   ruby 'bin/build-architecture-variants.rb'
 end
 
 desc "Create RSS Feed file"
-file 'public/feed.xml' => ['library_index_with_github.json'] do
+file 'public/feed.xml' => ['repos_index.csv', 'users_index.csv', 'versions_index.csv'] do
   ruby 'bin/build-rss-feed.rb'
 end
 
 desc "Create search index JSON file"
-file 'public/search-index.json' => ['library_index_with_github.json'] do
+file 'public/search-index.json' => ['repos_index.csv', 'users_index.csv', 'versions_index.csv'] do
   ruby 'bin/build-search-index.rb'
 end
 
 desc "Create sitemap file"
-file 'public/sitemap.xml' => ['library_index_with_github.json'] do
+file 'public/sitemap.xml' => ['repos_index.csv', 'users_index.csv', 'versions_index.csv'] do
   ruby 'bin/build-sitemap.rb'
+end
+
+desc "Delete non-github files"
+task :clean_non_github do 
+  File.foreach('.gitignore') do |line|
+    cleaned_line = line.sub(/#.*/, '').strip
+    next if cleaned_line.empty? || cleaned_line.include?('.csv')
+    sh 'rm', '-Rf', cleaned_line
+  end
 end
 
 desc "Generate all the required files in public"
 task :build => [:build_linkeddata, :build_site, 'public/architecture-variants.html', 'public/feed.xml', 'public/search-index.json', 'public/sitemap.xml']
+
+
+desc "Update repos"
+task :refresh => [
+  :clean_non_github,
+  :download_repos_csv,
+  :download_versions_csv,
+  :download_users_csv,
+
+  :build,
+]
 
 desc "Run a local web server on port 3000"
 task :server => :build do

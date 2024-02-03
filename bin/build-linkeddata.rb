@@ -6,10 +6,7 @@ Bundler.require(:default, :linkeddata)
 
 
 # Load the library data
-data = JSON.parse(
-  File.read('library_index_with_github.json'),
-  {:symbolize_names => true}
-)
+data = load_csv_data
 
 # Load the schema.org context data
 JSON::LD::Context.add_preloaded(
@@ -46,7 +43,6 @@ data[:libraries].each_pair do |key,library|
   if library[:license]
     jsonld['license'] = "https://spdx.org/licenses/"+library[:license]
   end
-
   File.open("public/libraries/#{key}.json", 'wb') do |file|
     file.write JSON.pretty_generate(jsonld)
   end

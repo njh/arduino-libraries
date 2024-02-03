@@ -2,13 +2,11 @@
 
 require 'bundler/setup'
 require 'find'
+require './lib/helpers'
 Bundler.require(:default)
 
-# Load the library data
-data = JSON.parse(
-  File.read('library_index_with_github.json'),
-  {:symbolize_names => true}
-)
+# # Load the library data
+data = load_csv_data
 
 
 File.open('public/sitemap.xml', 'wb') do |file|

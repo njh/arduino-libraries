@@ -1,3 +1,7 @@
+require 'csv'
+require 'json'
+require 'set'
+
 class String
   def keyize
     self.gsub(/([A-Z]+)([A-Z][a-z])/,'\1-\2').
@@ -92,4 +96,108 @@ end
 
 def remove_links(text)
   text.gsub(%r|(\w+)://|, '').gsub(/(\w+)\.(\w+)/, '\\1․\\2')
+end
+
+LIBRARY_JSON_COLUMNS = [
+  :architectures,
+  :dependencies,
+  :providesIncludes,
+  :types,
+].to_set
+NUMERIC_COLUMNS = [
+  :stargazers_count,
+  :watchers_count,
+  :forks,
+].to_set
+
+$csv_data = nil
+CSV::Converters[:custom_conv] = lambda do |value, field_info|
+  return value if value.nil?
+  if LIBRARY_JSON_COLUMNS.include? field_info.header 
+    JSON.parse(value, {:symbolize_names => true})
+  elsif NUMERIC_COLUMNS.include? field_info.header
+    if value.include? '.'
+      value.to_f
+    else
+      value.to_i
+    end
+  else
+    value
+  end
+end
+
+def load_csv_data(force_load=false)
+  return $csv_data if !force_load and !$csv_data.nil?
+  data = {
+    :libraries => {},
+    :authors => {},
+    :licenses => {},
+    :architectures => {},
+    :types => {},
+    :categories => {},
+  }
+  csv_options = {
+    :headers => true,
+    :header_converters => [->(v) { v.to_sym }],
+    :converters => [:custom_conv]
+  }
+  
+  CSV.foreach('users_index.csv', **csv_options) do |row|
+    data[:authors][row[:key].to_sym] = row.to_hash
+  end
+
+  CSV.foreach('repos_index.csv', **csv_options) do |row|
+    lib_key = row[:name].keyize.to_sym
+    data[:libraries][lib_key] = row.to_hash
+    
+    data[:authors][row[:username].to_sym] ||= {}
+    data[:authors][row[:username].to_sym][:libraries] ||= []
+    data[:authors][row[:username].to_sym][:libraries] << row[:key]
+
+    if row[:architectures].is_a?Array and !row[:architectures].empty?
+      row[:architectures].each do |architecture|
+        architecture = architecture.downcase
+        architecture = 'Unknown' if architecture.strip.empty?
+        architecture = 'Any' if architecture == '*' || architecture == '"*"' # `CosmosNV2` version `1.2.0` has architecture = ["\"*\""] in raw file
+        data[:architectures][architecture.to_sym] ||= []
+        data[:architectures][architecture.to_sym] << row[:key]
+      end
+    else
+      architecture = 'Unknown'
+      data[:architectures][architecture.to_sym] ||= []
+      data[:architectures][architecture.to_sym] << row[:key]
+    end
+
+    license = row[:license]
+    license = 'NA' if license.nil? or license.strip.empty?
+    data[:licenses][license.to_sym] ||= []
+    data[:licenses][license.to_sym] << row[:key]
+
+    if row[:types].is_a?Array and !row[:types].empty?
+      row[:types].each do |type|
+        type = 'Unknown' if type.strip.empty?
+        data[:types][type.to_sym] ||= []
+        data[:types][type.to_sym] << row[:key]
+      end
+    else
+      type = 'Unknown'
+      data[:types][type.to_sym] ||= []
+      data[:types][type.to_sym] << row[:key]
+    end
+
+    category = row[:category]
+    category = 'Unknown' if category.nil? or category.strip.empty?
+    data[:categories][category.to_sym] ||= []
+    data[:categories][category.to_sym] << row[:key]
+  end
+
+  CSV.foreach('versions_index.csv', **csv_options) do |row|
+    library = data[:libraries][row[:repo_key].to_sym]
+    library[:versions] ||= []
+    library[:versions] << row.to_hash
+    library[:release_date] = (library[:release_date].to_s > row[:release_date].to_s) ? library[:release_date] : row[:release_date]
+  end
+
+  $csv_data = data
+  data
 end
